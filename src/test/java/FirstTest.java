@@ -118,6 +118,7 @@ public class FirstTest {
     public void testActions(){
         driver.get("https://fakestore.testelka.pl/actions/");
         //test
+        //kupa
 
 
     }
