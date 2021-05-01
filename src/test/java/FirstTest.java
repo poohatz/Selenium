@@ -129,9 +129,16 @@ public class FirstTest {
         WebElement rect = driver.findElement(By.cssSelector("#double-click"));
         jse.executeScript("arguments[0].scrollIntoView(true);", rect);
         actions.moveToElement(rect).doubleClick().build().perform();
-        //zmiana na githubie
+        //zmiana na githubiet
         String kolor = rect.getCssValue("Background").substring(0,17);
         Assertions.assertEquals("rgb(245, 93, 122)",kolor,"kolor not correct");
+        driver.navigate().refresh();
+        WebElement input = driver.findElement(By.id("input"));
+        WebElement button = driver.findElement(By.cssSelector(".entry-content>p>button"));
+        jse.executeScript("arguments[0].scrollIntoView(true);", input);
+        actions.moveToElement(input).click().sendKeys("Wojtek").moveToElement(button).click().build().perform();
+        String wprText = driver.findElement(By.id("output")).getText();
+        Assertions.assertEquals("Wprowadzony tekst: Wojtek", wprText,"nie takie imie");
     }
 
 }
