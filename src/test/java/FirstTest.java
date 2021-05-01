@@ -129,6 +129,7 @@ public class FirstTest {
         WebElement rect = driver.findElement(By.cssSelector("#double-click"));
         jse.executeScript("arguments[0].scrollIntoView(true);", rect);
         actions.moveToElement(rect).doubleClick().build().perform();
+        //zmiana na githubie
     }
 
 }
