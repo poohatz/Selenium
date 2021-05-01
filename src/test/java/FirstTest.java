@@ -22,8 +22,8 @@ public class FirstTest {
         System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         actions = new Actions(driver);
 
     }
@@ -130,6 +130,8 @@ public class FirstTest {
         jse.executeScript("arguments[0].scrollIntoView(true);", rect);
         actions.moveToElement(rect).doubleClick().build().perform();
         //zmiana na githubie
+        String kolor = rect.getCssValue("Background").substring(0,17);
+        Assertions.assertEquals("rgb(245, 93, 122)",kolor,"kolor not correct");
     }
 
 }
