@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 public class FirstTest {
@@ -117,8 +118,17 @@ public class FirstTest {
     @Test
     public void testActions(){
         driver.get("https://fakestore.testelka.pl/actions/");
-
-
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        WebElement menu = driver.findElement(By.id("menu-link"));
+        jse.executeScript("arguments[0].scrollIntoView(true);", menu);
+        WebElement kart = driver.findElement(By.cssSelector("#div-context-menu > ul > li.menu-cart"));
+        actions.moveToElement(menu).contextClick().moveToElement(kart).click().build().perform();
+        String text = driver.findElement(By.cssSelector(".entry-title")).getText();
+        Assertions.assertEquals("Koszyk", text, "somthing wrong");
+        driver.navigate().back();
+        WebElement rect = driver.findElement(By.cssSelector("#double-click"));
+        jse.executeScript("arguments[0].scrollIntoView(true);", rect);
+        actions.moveToElement(rect).doubleClick().build().perform();
     }
 
 }
