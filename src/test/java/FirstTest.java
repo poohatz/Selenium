@@ -139,6 +139,12 @@ public class FirstTest {
         actions.moveToElement(input).click().sendKeys("Wojtek").moveToElement(button).click().build().perform();
         String wprText = driver.findElement(By.id("output")).getText();
         Assertions.assertEquals("Wprowadzony tekst: Wojtek", wprText,"nie takie imie");
+        driver.navigate().refresh();
+        WebElement yellow = driver.findElement(By.id("draggable"));
+        WebElement pink = driver.findElement(By.id("droppable"));
+        jse.executeScript("arguments[0].scrollIntoView(true);", yellow);
+        actions.dragAndDrop(yellow,pink).build().perform();
+
     }
 
 }
