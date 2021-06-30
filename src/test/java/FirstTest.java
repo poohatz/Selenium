@@ -23,6 +23,7 @@ public class FirstTest {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
         actions = new Actions(driver);
 
@@ -115,6 +116,8 @@ public class FirstTest {
         return alert;
     }
 
+
+    /*
     @Test
     public void testActions(){
         driver.get("https://fakestore.testelka.pl/actions/");
@@ -146,5 +149,5 @@ public class FirstTest {
         actions.dragAndDrop(yellow,pink).build().perform();
 
     }
-
+*/
 }
