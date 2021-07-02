@@ -67,7 +67,7 @@ public class NavigationTests {
         String category = categories[9];
         String productSymbol = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).getProductSymbol();
 
-        assertTrue(productSymbol.contains(symbol), "Strona produktu  nie działa prawidłowo");
+        assertTrue(productSymbol.contains(symbol), "Strona produktu nie działa prawidłowo");
     }
 
 
