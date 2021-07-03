@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NavigationTests {
 
@@ -22,7 +23,7 @@ public class NavigationTests {
 
     String[] categories = {"Nowości","Mystic Moment", "Folk&Boho", "Wild Garden", "Vintage&Nature", "Pastellove",
                             "Royal Style", "Simple Beauty", "Classic Elegance", "Colors of Love", "Passion&Fun"};
-    String[] products = {"CL06"};
+    String[] products = {"CL06","mm04","FB01", "jt100", "PL47", "sa32"};
 
     @BeforeEach
     public void testSetUp(){
@@ -61,13 +62,47 @@ public class NavigationTests {
     @Test
     public void navigateToProductPageTest() {
 
-        mainCategoryPage = new MainCategoryPage(driver);
-
         String symbol = products[0];
         String category = categories[9];
+
+        mainCategoryPage = new MainCategoryPage(driver);
         String productSymbol = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).getProductSymbol();
 
         assertTrue(productSymbol.contains(symbol), "Strona produktu nie działa prawidłowo");
+    }
+
+    @Test
+    public void navigateToNextProductTest(){
+
+        String symbol = products[1];
+        String symbolNext = "mm07";
+        String category = categories[1];
+
+        mainCategoryPage = new MainCategoryPage(driver);
+        categoryPage = new CategoryPage(driver, category);
+        productPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol);
+
+        String productSymbolNext = productPage.viewNextProductPage().getProductSymbol();
+
+        assertTrue(productSymbolNext.contains(symbolNext), "Przycisk 'Następny' nie działa prawidłowo");
+
+    }
+
+    @Test
+    public void navigateToPreviousProductTest(){
+
+        String symbol = products[1];
+        String symbolPrevious = "MM20200003";
+        String category = categories[1];
+
+        mainCategoryPage = new MainCategoryPage(driver);
+        categoryPage = new CategoryPage(driver, category);
+        productPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol);
+
+        String productSymbolPrevious = productPage.viewPreviousProductPage().getProductSymbol();
+
+        assertTrue(productSymbolPrevious.contains(symbolPrevious), "Przycisk 'Poprzedni' nie działa prawidłowo");
+
     }
 
 
