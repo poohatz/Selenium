@@ -12,9 +12,9 @@ public class ProductPage {
     private WebDriverWait wait;
     private String symbol;
 
-    By productSymbolSelector = new By.ByCssSelector("h1.product_name");
-    By buttonNextSelector = new By.ByCssSelector("div.container > div > div > div > a.next");
-    By buttonPreviousSelector = new By.ByCssSelector("div.container > div > div > div > a.prev");
+    private By productSymbolSelector = new By.ByCssSelector("h1.product_name");
+    private By buttonNextSelector = new By.ByCssSelector("div.container > div > div > div > a.next");
+    private By buttonPreviousSelector = new By.ByCssSelector("div.container > div > div > div > a.prev");
 
     public ProductPage(WebDriver driver, String symbol) {
 
@@ -22,7 +22,8 @@ public class ProductPage {
         this.symbol = symbol;
     }
 
-    public ProductPage() {
+    public ProductPage(WebDriver driver) {
+        this.driver = driver;
     }
 
     public String getProductSymbol() {
@@ -33,7 +34,8 @@ public class ProductPage {
     }
 
     public ProductPage viewNextProductPage(){
-        wait = new WebDriverWait(driver,5);
+
+        wait = new WebDriverWait(driver,9);
         wait.until(ExpectedConditions.elementToBeClickable(buttonNextSelector));
         WebElement buttonNextProduct = driver.findElement(buttonNextSelector);
         buttonNextProduct.click();
@@ -41,7 +43,7 @@ public class ProductPage {
     }
 
     public ProductPage viewPreviousProductPage(){
-        wait = new WebDriverWait(driver,5);
+        wait = new WebDriverWait(driver,9);
         wait.until(ExpectedConditions.elementToBeClickable(buttonPreviousSelector));
         WebElement buttonPreviousProduct = driver.findElement(buttonPreviousSelector);
         buttonPreviousProduct.click();

@@ -23,7 +23,7 @@ public class NavigationTests {
 
     String[] categories = {"Nowości","Mystic Moment", "Folk&Boho", "Wild Garden", "Vintage&Nature", "Pastellove",
                             "Royal Style", "Simple Beauty", "Classic Elegance", "Colors of Love", "Passion&Fun"};
-    String[] products = {"CL06","mm04","FB01", "jt100", "PL47", "sa32"};
+    String[] products = {"CL06","mm04","FB01", "jt100", "PL47", "sa32","CL05", "Cl37", "mm07"};
 
     @BeforeEach
     public void testSetUp(){
@@ -62,7 +62,7 @@ public class NavigationTests {
     @Test
     public void navigateToProductPageTest() {
 
-        String symbol = products[0];
+        String symbol = "CL06";
         String category = categories[9];
 
         mainCategoryPage = new MainCategoryPage(driver);
@@ -74,7 +74,7 @@ public class NavigationTests {
     @Test
     public void navigateToNextProductTest(){
 
-        String symbol = products[1];
+        String symbol = "mm04";
         String symbolNext = "mm07";
         String category = categories[1];
 
@@ -91,7 +91,7 @@ public class NavigationTests {
     @Test
     public void navigateToPreviousProductTest(){
 
-        String symbol = products[1];
+        String symbol = "mm04";
         String symbolPrevious = "MM20200003";
         String category = categories[1];
 
@@ -102,6 +102,32 @@ public class NavigationTests {
         String productSymbolPrevious = productPage.viewPreviousProductPage().getProductSymbol();
 
         assertTrue(productSymbolPrevious.contains(symbolPrevious), "Przycisk 'Poprzedni' nie działa prawidłowo");
+
+    }
+
+    @Test
+    public void navigateAllProductsByNextButtonTest(){
+
+        String symbolFirst = "FR48";
+        String symbolLast = "WG208";
+        String category = categories[3];
+
+        mainCategoryPage = new MainCategoryPage(driver);
+        categoryPage = new CategoryPage(driver, category);
+
+        ProductPage productPage = mainCategoryPage.viewCategoryByName(category).viewFirstProductPage();
+        String productSymbolFirst = productPage.getProductSymbol();
+        String productSymbolNext = productSymbolFirst;
+
+        do {
+            productSymbolNext = productPage.viewNextProductPage().getProductSymbol();
+            System.out.println(productSymbolNext);
+        }
+        while (!productSymbolNext.contains(symbolLast));
+
+        String productSymbolLast = productSymbolNext;
+
+        assertTrue(productSymbolNext.contains(symbolLast), "Przejście przez wszystkie produkty nie działa prawidłowo");
 
     }
 
