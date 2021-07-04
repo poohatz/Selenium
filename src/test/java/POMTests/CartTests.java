@@ -1,5 +1,7 @@
 package POMTests;
 
+import PageObjects.CategoryPage;
+import PageObjects.MainCategoryPage;
 import PageObjects.ProductPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +17,15 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartTests {
+
     WebDriver driver;
+    MainCategoryPage mainCategoryPage;
+    CategoryPage categoryPage;
+    ProductPage productPage;
+
+    String[] categories = {"Nowości","Mystic Moment", "Folk&Boho", "Wild Garden", "Vintage&Nature", "Pastellove",
+            "Royal Style", "Simple Beauty", "Classic Elegance", "Colors of Love", "Passion&Fun"};
+
 
     @BeforeEach
     public void testSetUp(){
@@ -23,11 +33,11 @@ public class CartTests {
         System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver.exe");
         driver = new ChromeDriver();
 
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        //driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 
         driver.manage().window().maximize();
-        driver.navigate().to("https://decarte.com.pl");
+        driver.navigate().to("https://www.decarte.com.pl/sklep/zaproszenia-slubne");
 
     }
 
@@ -36,13 +46,18 @@ public class CartTests {
         driver.quit();
     }
 
-    /*@Test
-    public void emptyCart(){
-        MainProductPage mainProductPage = new ProductPage(driver);
-        int productAmount = productPage.goTo(productUrl).addToCart().viewCart().getProductsAmount(productId);
+    @Test
+    public void addToCartByProductPageTest(){
 
-        assertTrue(productAmount==1,
-                "Remove button was not found for a product with id=386 (Egipt - El Gouna). " +
-                        "Was the product added to cart?");
-    }*/
+        String category = categories[4];
+        String symbol = "sa32";
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        String productSymbolInCart = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).addToCart().getProductSymbolInCart();
+
+        assertTrue(productSymbolInCart.equals(symbol),"Produkt nie dodaje sie do koszyka");
+
+    }
+
+
 }

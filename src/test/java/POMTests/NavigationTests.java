@@ -135,18 +135,6 @@ public class NavigationTests {
 
     }
 
-    @Test
-    public void addToCartByProductPageTest(){
-
-        String category = categories[4];
-        String symbol = "sa32";
-
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        String productSymbolInCart = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).addToCart().getProductSymbolInCart();
-
-        assertTrue(productSymbolInCart.equals(symbol),"Produkt nie dodaje sie do koszyka");
-
-    }
 
     @Test
     public void navigateFromCartToMainPageAnRevertTest(){
