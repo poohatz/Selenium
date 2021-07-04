@@ -15,6 +15,7 @@ public class ProductPage {
     private By productSymbolSelector = new By.ByCssSelector("h1.product_name");
     private By buttonNextSelector = new By.ByCssSelector("div.container > div > div > div > a.next");
     private By buttonPreviousSelector = new By.ByCssSelector("div.container > div > div > div > a.prev");
+    private By addToCartButtonSelector = new By.ByCssSelector("form > div > button");
 
     public ProductPage(WebDriver driver, String symbol) {
 
@@ -48,6 +49,17 @@ public class ProductPage {
         WebElement buttonPreviousProduct = driver.findElement(buttonPreviousSelector);
         buttonPreviousProduct.click();
         return this;
+
+    }
+
+    public CartPage addToCart(){
+
+        wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonSelector));
+        WebElement addToCartButton = driver.findElement(addToCartButtonSelector);
+        addToCartButton.click();
+        CartPage cartPage = new CartPage(driver);
+        return cartPage;
 
     }
 }

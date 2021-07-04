@@ -1,5 +1,6 @@
 package POMTests;
 
+import PageObjects.CartPage;
 import PageObjects.CategoryPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.ProductPage;
@@ -108,16 +109,21 @@ public class NavigationTests {
     @Test
     public void navigateAllProductsByNextButtonTest(){
 
-        String symbolFirst = "FR48";
-        String symbolLast = "WG208";
-        String category = categories[3];
+        //String symbolFirst = "FR48";
+        //String symbolLast = "WG208";
+        String category = categories[8];
 
         mainCategoryPage = new MainCategoryPage(driver);
         categoryPage = new CategoryPage(driver, category);
 
-        ProductPage productPage = mainCategoryPage.viewCategoryByName(category).viewFirstProductPage();
+        CategoryPage categoryPage = mainCategoryPage.viewCategoryByName(category);
+        String productSymbolLast = categoryPage.findLastProductSymbol();
+        String symbolLast = productSymbolLast;
+
+        ProductPage productPage = categoryPage.viewFirstProductPage();
         String productSymbolFirst = productPage.getProductSymbol();
         String productSymbolNext = productSymbolFirst;
+
 
         do {
             productSymbolNext = productPage.viewNextProductPage().getProductSymbol();
@@ -125,11 +131,27 @@ public class NavigationTests {
         }
         while (!productSymbolNext.contains(symbolLast));
 
-        String productSymbolLast = productSymbolNext;
-
         assertTrue(productSymbolNext.contains(symbolLast), "Przejście przez wszystkie produkty nie działa prawidłowo");
 
     }
 
+    @Test
+    public void addToCartByProductPageTest(){
+
+        String category = categories[4];
+        String symbol = "sa32";
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        String productSymbolInCart = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).addToCart().getProductSymbolInCart();
+
+        assertTrue(productSymbolInCart.equals(symbol),"Produkt nie dodaje sie do koszyka");
+
+    }
+
+    @Test
+    public void navigateFromCartToMainPageAnRevertTest(){
+
+
+    }
 
 }

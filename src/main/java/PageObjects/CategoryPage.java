@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class CategoryPage {
 
     private WebDriver driver;
@@ -14,15 +16,17 @@ public class CategoryPage {
     private String name;
     private String category;
     private String symbol;
+    public String lastProductSymbol;
     private ProductPage productPage;
 
     private By categoryNameSelector = new By.ByCssSelector("h1");
     private By productSymbolSelector;
     private By acceptCookieSelector = new By.ByCssSelector("div#gdpr-warning > button.accept-cookie");
     private By productSymbolFirstSelector = new By.ByCssSelector("ul#products > li > a > img");
+    private By productSymbolLastSelector = new By.ByCssSelector("p.description");
     private WebElement acceptCookie;
     private WebElement firstProductFromCategory;
-    private WebElement lastProductFromCategory;
+    public WebElement lastProductFromCategory;
 
 
 
@@ -39,6 +43,21 @@ public class CategoryPage {
 
         String categoryName = driver.findElement(this.categoryNameSelector).getText();
         return categoryName;
+    }
+
+    public String findLastProductSymbol(){
+
+        List<WebElement> ProductsFromCategory = driver.findElements(productSymbolLastSelector);
+        int index = ProductsFromCategory.size()-1;
+
+        lastProductFromCategory = ProductsFromCategory.get(index);
+        lastProductSymbol = lastProductFromCategory.getText();
+        lastProductSymbol = lastProductSymbol.substring(6);
+        int spacePosition = lastProductSymbol.indexOf(" ");
+        lastProductSymbol = lastProductSymbol.substring(0, spacePosition-1);
+
+        return lastProductSymbol;
+
     }
 
     public ProductPage viewProductBySymbol(String symbol){
