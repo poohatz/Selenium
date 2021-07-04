@@ -151,6 +151,18 @@ public class NavigationTests {
     @Test
     public void navigateFromCartToMainPageAnRevertTest(){
 
+        String category = categories[4];
+        String symbol = "sa32";
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        String productSymbolInCart = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).addToCart().getProductSymbolInCart();
+
+        mainCategoryPage.viewMainPage();
+        String productSymbolAfterRevert = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).addToCart().getProductSymbolInCart();
+
+        assertEquals(productSymbolAfterRevert, productSymbolInCart, "Nawigacja do strony glownej nie dziala, badz zawartosc koszyka nie zapisuje sie");
+
+
 
     }
 

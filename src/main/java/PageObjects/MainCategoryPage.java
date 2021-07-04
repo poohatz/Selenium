@@ -30,5 +30,10 @@ public class MainCategoryPage {
         return categoryPage;
     }
 
+    public MainCategoryPage viewMainPage(){
+        driver.navigate().to("https://www.decarte.com.pl/sklep/zaproszenia-slubne");
+        return this;
+    }
+
 
 }
