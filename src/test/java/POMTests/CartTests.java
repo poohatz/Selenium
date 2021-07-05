@@ -47,16 +47,31 @@ public class CartTests {
     }
 
     @Test
-    public void addToCartByProductPageTest(){
+    public void addOneProductToCartByProductPageTest(){
 
         String category = categories[4];
         String symbol = "sa32";
 
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        String productSymbolInCart = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).addToCart().getProductSymbolInCart();
+        String productSymbolInCart = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).addToCart().getProductSymbolInCart(0);
 
         assertTrue(productSymbolInCart.equals(symbol),"Produkt nie dodaje sie do koszyka");
 
+    }
+
+    @Test
+    public void addSomeProductsToCartByProductPageTest(){
+
+        String category1 = categories[4];
+        String symbol1 = "sa32";
+        String category2 = categories[5];
+        String symbol2 = "PL47";
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        String productSymbolInCart1 = mainCategoryPage.viewCategoryByName(category1).viewProductBySymbol(symbol1).addToCart().getProductSymbolInCart(0);
+        String productSymbolInCart2 = mainCategoryPage.viewCategoryByName(category2).viewProductBySymbol(symbol2).addToCart().getProductSymbolInCart(1);
+
+        assertTrue(productSymbolInCart1.equals(symbol1) && productSymbolInCart2.equals(symbol2),"Ktorys z produktow nie dodaje sie do koszyka");
     }
 
 
