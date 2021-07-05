@@ -1,9 +1,12 @@
 package POMTests;
 
+import PageObjects.CartPage;
 import PageObjects.CategoryPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.ProductPage;
+import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -14,6 +17,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartTests {
@@ -60,7 +65,7 @@ public class CartTests {
     }
 
     @Test
-    public void addSomeProductsToCartByProductPageTest(){
+    public void addSomeProductsToCartByProductPageCartTest(){
 
         String category1 = categories[4];
         String symbol1 = "sa32";
@@ -72,6 +77,35 @@ public class CartTests {
         String productSymbolInCart2 = mainCategoryPage.viewCategoryByName(category2).viewProductBySymbol(symbol2).addToCart().getProductSymbolInCart(1);
 
         assertTrue(productSymbolInCart1.equals(symbol1) && productSymbolInCart2.equals(symbol2),"Ktorys z produktow nie dodaje sie do koszyka");
+    }
+
+    @Test
+    public void addTwiceSameProductToCartTest(){
+
+        String category1 = categories[4];
+        String symbol1 = "sa32";
+        String category2 = categories[4];
+        String symbol2 = "sa32";
+        String productQuantityInCartPage1;
+        String productQuantityInCartPage2 = null;
+        
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        CartPage productSymbolInCart1 = mainCategoryPage.viewCategoryByName(category1).viewProductBySymbol(symbol1).addToCart();
+        CartPage productSymbolInCart2 = mainCategoryPage.viewCategoryByName(category2).viewProductBySymbol(symbol2).addToCart();
+
+        productQuantityInCartPage1 = productSymbolInCart1.getProductQuantity(0);
+
+        try{
+            productQuantityInCartPage2 = productSymbolInCart2.getProductQuantity(1);
+        }
+        catch(Exception E){};
+
+        Assertions.assertNull(productQuantityInCartPage2, "Produkt nie dodaje sie prawidlowo");
+        assertEquals(productQuantityInCartPage1,"40", "Ilosc produktu nie zgadza sie");
+
+
+
     }
 
 
