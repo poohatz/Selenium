@@ -8,10 +8,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CartPage {
 
-
-
     private WebDriver driver;
     private By productInCartSymbolSelector = new By.ByCssSelector("h2 > a");
+    private By cartSelector = new By.ByCssSelector("a > img[alt='Koszyk']");
     private String productInCartSymbol;
     private String symbol;
 
@@ -36,11 +35,19 @@ public class CartPage {
 
     }
 
+
     public String getProductQuantity(int index){
 
         By inputQuantitySelector = new By.ByCssSelector("input#cart_items_" + index + "_quantity");
         String quantity = driver.findElement(inputQuantitySelector).getAttribute("value");
         return quantity;
 
+    }
+
+    public CartPage viewCartPage(){
+
+        CartPage cartPage = new CartPage(driver);
+        driver.findElement(cartSelector).click();
+        return cartPage;
     }
 }

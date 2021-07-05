@@ -21,7 +21,6 @@ public class MainCategoryPage {
     }
 
 
-
     public CategoryPage viewCategoryByName(String categoryName){
 
         categoryPage = new CategoryPage(driver,categoryName);
@@ -31,6 +30,7 @@ public class MainCategoryPage {
     }
 
     public MainCategoryPage viewMainPage(){
+
         driver.navigate().to("https://www.decarte.com.pl/sklep/zaproszenia-slubne");
         return this;
     }

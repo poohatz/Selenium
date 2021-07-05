@@ -18,6 +18,7 @@ public class CategoryPage {
     private String symbol;
     public String lastProductSymbol;
     private ProductPage productPage;
+    private CartPage cartPage;
 
     private By categoryNameSelector = new By.ByCssSelector("h1");
     private By productSymbolSelector;
@@ -100,5 +101,14 @@ public class CategoryPage {
         productPage = new ProductPage(driver,productSymbol);
         return productPage;
 
+    }
+
+    public CartPage addToCartByCategoryPage(String symbol){
+
+        By orderButtonCategoryPage = new By.ByXPath(".//a/img[@alt='Model " + symbol + "']/parent::a/parent::li/form/button");
+        driver.findElement(orderButtonCategoryPage).click();
+        cartPage = new CartPage(driver);
+        cartPage.viewCartPage();
+        return cartPage;
     }
 }
