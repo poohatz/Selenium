@@ -65,7 +65,7 @@ public class CartTests {
     }
 
     @Test
-    public void addSomeProductsToCartByProductPageCartTest(){
+    public void addSomeProductsToCartByProductPageTest(){
 
         String category1 = categories[4];
         String symbol1 = "sa32";
@@ -103,10 +103,37 @@ public class CartTests {
 
         Assertions.assertNull(productQuantityInCartPage2, "Produkt nie dodaje sie prawidlowo");
         assertEquals(productQuantityInCartPage1,"40", "Ilosc produktu nie zgadza sie");
+    }
 
+    @Test
+    public void addProductToCartFromCategoryPageTest(){
 
+        String category = categories[4];
+        String symbol = "sa32";
+        String productSymbolInCart;
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        CategoryPage categoryPage = mainCategoryPage.viewCategoryByName(category);
+        CartPage cartPage = categoryPage.addToCartByCategoryPage(symbol);
+        productSymbolInCart = cartPage.viewCartPage().getProductSymbolInCart(0);
+
+        assertTrue(productSymbolInCart.equals(symbol), "Nie udalo sie dodac produktu ze strony kategorii");
 
     }
 
+    @Test
+    public void changeQuantityOfProductInCartTest(){
+
+        String category = categories[4];
+        String symbol = "sa32";
+        String quantity = "78";
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        CartPage cartPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol);
+        String productQuantityInCartPage = cartPage.changeProductQuantity(0,78).getProductQuantity(0);
+
+        assertTrue(quantity.equals(productQuantityInCartPage));
+        
+    }
 
 }

@@ -13,6 +13,7 @@ public class CartPage {
     private By cartSelector = new By.ByCssSelector("a > img[alt='Koszyk']");
     private String productInCartSymbol;
     private String symbol;
+    private WebElement productQuantityInCart;
 
     public CartPage(WebDriver driver) {
         this.driver = driver;
@@ -30,7 +31,9 @@ public class CartPage {
     public CartPage changeProductQuantity(int index, Integer quantity) {
 
         By inputQuantitySelector = new By.ByCssSelector("input#cart_items_" + index + "_quantity");
-        driver.findElement(inputQuantitySelector).sendKeys(quantity.toString());
+        productQuantityInCart = driver.findElement(inputQuantitySelector);
+        productQuantityInCart.clear();
+        productQuantityInCart.sendKeys(quantity.toString());
         return this;
 
     }
@@ -39,7 +42,8 @@ public class CartPage {
     public String getProductQuantity(int index){
 
         By inputQuantitySelector = new By.ByCssSelector("input#cart_items_" + index + "_quantity");
-        String quantity = driver.findElement(inputQuantitySelector).getAttribute("value");
+        productQuantityInCart = driver.findElement(inputQuantitySelector);
+        String quantity = productQuantityInCart.getAttribute("value");
         return quantity;
 
     }
