@@ -122,7 +122,7 @@ public class CartTests {
     }
 
     @Test
-    public void changeQuantityOfProductInCartTest(){
+    public void changeQuantityOfProductInCartPageTest(){
 
         String category = categories[4];
         String symbol = "sa32";
@@ -130,10 +130,40 @@ public class CartTests {
 
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         CartPage cartPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol);
-        String productQuantityInCartPage = cartPage.changeProductQuantity(0,78).getProductQuantity(0);
+        String productQuantityInCartPage = cartPage.changeProductQuantity(0, "78").getProductQuantity(0);
 
         assertTrue(quantity.equals(productQuantityInCartPage));
-        
+
+    }
+
+    @Test
+    public void calculateTotalAmountInCartPageTest(){
+
+        String category1 = categories[4];
+        String symbol1 = "sa32";
+        String quantity1 = "78";
+
+        String category2 = categories[1];
+        String symbol2 = "mm07";
+        String quantity2 = "123";
+
+        String totalAmount ="1 374,60";
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        CartPage cartPage = mainCategoryPage.viewCategoryByName(category1).addToCartByCategoryPage(symbol1).changeProductQuantity(0, "78");
+        cartPage.acceptCookieCartPage();
+        String totalAmountInCartPage = cartPage.setDeliveryType().setRealizationType().calculateTotalAmount().getTotalAmount();
+        mainCategoryPage.viewCategoryByName(category2).viewProductBySymbol(symbol2).addToCart().changeProductQuantity(1, "123");
+        totalAmountInCartPage = cartPage.calculateTotalAmount().getTotalAmount();
+
+        assertTrue(totalAmountInCartPage.contains(totalAmount), "Przeliczona suma w koszyku nie zgadza sie");
+
+
+
+
+
+
+
     }
 
 }

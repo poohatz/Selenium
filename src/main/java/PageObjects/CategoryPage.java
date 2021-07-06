@@ -40,6 +40,17 @@ public class CategoryPage {
     public CategoryPage() {
     }
 
+    public void acceptCookieCategoryPage(){
+        wait = new WebDriverWait(driver,5);
+        try {
+            acceptCookie = driver.findElement(acceptCookieSelector);
+            wait.until(ExpectedConditions.elementToBeClickable(acceptCookie));
+            if(acceptCookie!=null) acceptCookie.click();
+        } catch (Exception E){
+            System.out.println("Zgoda RODO zaakceptowana wczesniej");
+        };
+    }
+
     public String getCategoryName(){
 
         String categoryName = driver.findElement(this.categoryNameSelector).getText();
@@ -65,13 +76,7 @@ public class CategoryPage {
 
         productSymbolSelector = new By.ByCssSelector("img[alt='Model " + symbol + "']");
         wait = new WebDriverWait(driver, 7);
-        try {
-            acceptCookie = driver.findElement(acceptCookieSelector);
-            wait.until(ExpectedConditions.elementToBeClickable(acceptCookie));
-            if(acceptCookie!=null) acceptCookie.click();
-        } catch (Exception E){
-            System.out.println("Zgoda RODO zaakceptowana wczesniej");
-        };
+        this.acceptCookieCategoryPage();
 
         wait.until(ExpectedConditions.elementToBeClickable(productSymbolSelector));
         productPage = new ProductPage(driver,symbol);
@@ -88,14 +93,6 @@ public class CategoryPage {
         firstProductFromCategory = driver.findElements(productSymbolFirstSelector).get(0);
         firstProductFromCategory.click();
 
-        try {
-            acceptCookie = driver.findElement(acceptCookieSelector);
-            wait.until(ExpectedConditions.elementToBeClickable(acceptCookie));
-            if(acceptCookie!=null) acceptCookie.click();
-        } catch (Exception E){
-            System.out.println("Zgoda RODO zaakceptowana wczesniej");
-        };
-
         String productSymbol = productPage.getProductSymbol();
         System.out.println(productSymbol);
         productPage = new ProductPage(driver,productSymbol);
@@ -104,6 +101,8 @@ public class CategoryPage {
     }
 
     public CartPage addToCartByCategoryPage(String symbol){
+
+        this.acceptCookieCategoryPage();
 
         By orderButtonCategoryPage = new By.ByXPath(".//a/img[@alt='Model " + symbol + "']/parent::a/parent::li/form/button");
         driver.findElement(orderButtonCategoryPage).click();

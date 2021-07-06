@@ -19,9 +19,11 @@ public class ProductPage {
     private By buttonNextSelector = new By.ByCssSelector("div.container > div > div > div > a.next");
     private By buttonPreviousSelector = new By.ByCssSelector("div.container > div > div > div > a.prev");
     private By addToCartButtonSelector = new By.ByCssSelector("form > div > button");
-
+    public By acceptCookieSelector = new By.ByCssSelector("div#gdpr-warning > button.accept-cookie");
     By imageThumbnailProductGallerySelector = new By.ByCssSelector("img[data-index]");
+
     public List<WebElement> imageThumbnailProductGalleryFilesList;
+    public WebElement acceptCookie;
 
     public ProductPage(WebDriver driver, String symbol) {
 
@@ -31,6 +33,17 @@ public class ProductPage {
 
     public ProductPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public void acceptCookieProductPage(){
+        wait = new WebDriverWait(driver,5);
+        try {
+            acceptCookie = driver.findElement(acceptCookieSelector);
+            wait.until(ExpectedConditions.elementToBeClickable(acceptCookie));
+            if(acceptCookie!=null) acceptCookie.click();
+        } catch (Exception E){
+            System.out.println("Zgoda RODO zaakceptowana wczesniej");
+        };
     }
 
     public String getProductSymbol() {
