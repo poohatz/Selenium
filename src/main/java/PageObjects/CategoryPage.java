@@ -110,4 +110,5 @@ public class CategoryPage {
         cartPage.viewCartPage();
         return cartPage;
     }
+
 }

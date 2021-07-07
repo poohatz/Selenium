@@ -9,10 +9,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
@@ -28,14 +25,14 @@ public class CartTests {
     CategoryPage categoryPage;
     ProductPage productPage;
 
-    String[] categories = {"Nowości","Mystic Moment", "Folk&Boho", "Wild Garden", "Vintage&Nature", "Pastellove",
+    String[] categories = {"Nowości", "Mystic Moment", "Folk&Boho", "Wild Garden", "Vintage&Nature", "Pastellove",
             "Royal Style", "Simple Beauty", "Classic Elegance", "Colors of Love", "Passion&Fun"};
 
 
     @BeforeEach
-    public void testSetUp(){
+    public void testSetUp() {
 
-        System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         driver = new ChromeDriver();
 
         //driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
@@ -48,11 +45,12 @@ public class CartTests {
 
     @AfterEach
     public void closeDriver() {
-        driver.quit();
+
+        //driver.quit();
     }
 
     @Test
-    public void addOneProductToCartByProductPageTest(){
+    public void addOneProductToCartByProductPageTest() {
 
         String category = categories[4];
         String symbol = "sa32";
@@ -60,12 +58,12 @@ public class CartTests {
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         String productSymbolInCart = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).addToCart().getProductSymbolInCart(0);
 
-        assertTrue(productSymbolInCart.equals(symbol),"Produkt nie dodaje sie do koszyka");
+        assertTrue(productSymbolInCart.equals(symbol), "Produkt nie dodaje sie do koszyka");
 
     }
 
     @Test
-    public void addSomeProductsToCartByProductPageTest(){
+    public void addSomeProductsToCartByProductPageTest() {
 
         String category1 = categories[4];
         String symbol1 = "sa32";
@@ -76,11 +74,11 @@ public class CartTests {
         String productSymbolInCart1 = mainCategoryPage.viewCategoryByName(category1).viewProductBySymbol(symbol1).addToCart().getProductSymbolInCart(0);
         String productSymbolInCart2 = mainCategoryPage.viewCategoryByName(category2).viewProductBySymbol(symbol2).addToCart().getProductSymbolInCart(1);
 
-        assertTrue(productSymbolInCart1.equals(symbol1) && productSymbolInCart2.equals(symbol2),"Ktorys z produktow nie dodaje sie do koszyka");
+        assertTrue(productSymbolInCart1.equals(symbol1) && productSymbolInCart2.equals(symbol2), "Ktorys z produktow nie dodaje sie do koszyka");
     }
 
     @Test
-    public void addTwiceSameProductToCartTest(){
+    public void addTwiceSameProductToCartTest() {
 
         String category1 = categories[4];
         String symbol1 = "sa32";
@@ -88,7 +86,7 @@ public class CartTests {
         String symbol2 = "sa32";
         String productQuantityInCartPage1;
         String productQuantityInCartPage2 = null;
-        
+
 
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         CartPage productSymbolInCart1 = mainCategoryPage.viewCategoryByName(category1).viewProductBySymbol(symbol1).addToCart();
@@ -96,17 +94,18 @@ public class CartTests {
 
         productQuantityInCartPage1 = productSymbolInCart1.getProductQuantity(0);
 
-        try{
+        try {
             productQuantityInCartPage2 = productSymbolInCart2.getProductQuantity(1);
+        } catch (Exception E) {
         }
-        catch(Exception E){};
+        ;
 
         Assertions.assertNull(productQuantityInCartPage2, "Produkt nie dodaje sie prawidlowo");
-        assertEquals(productQuantityInCartPage1,"40", "Ilosc produktu nie zgadza sie");
+        assertEquals(productQuantityInCartPage1, "40", "Ilosc produktu nie zgadza sie");
     }
 
     @Test
-    public void addProductToCartFromCategoryPageTest(){
+    public void addProductToCartFromCategoryPageTest() {
 
         String category = categories[4];
         String symbol = "sa32";
@@ -122,7 +121,7 @@ public class CartTests {
     }
 
     @Test
-    public void changeQuantityOfProductInCartPageTest(){
+    public void changeQuantityOfProductInCartPageTest() {
 
         String category = categories[4];
         String symbol = "sa32";
@@ -137,7 +136,7 @@ public class CartTests {
     }
 
     @Test
-    public void calculateTotalAmountInCartPageTest(){
+    public void calculateTotalAmountInCartPageTest() {
 
         String category1 = categories[4];
         String symbol1 = "sa32";
@@ -147,7 +146,7 @@ public class CartTests {
         String symbol2 = "mm07";
         String quantity2 = "123";
 
-        String totalAmount ="1 374,60";
+        String totalAmount = "1 374,60";
 
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         CartPage cartPage = mainCategoryPage.viewCategoryByName(category1).addToCartByCategoryPage(symbol1).changeProductQuantity(0, "78");
@@ -157,11 +156,50 @@ public class CartTests {
         totalAmountInCartPage = cartPage.calculateTotalAmount().getTotalAmount();
 
         assertTrue(totalAmountInCartPage.contains(totalAmount), "Przeliczona suma w koszyku nie zgadza sie");
+    }
+
+
+    @Test
+    public void settingIncorrectQuantityCartPageTest() {
+
+        String category = categories[4];
+        String symbol = "sa32";
+        String quantity = "15";
+        String message = "Wartość nie może być mniejsza niż 20.";
+        String productQuantityInCart = "";
+        String quantityAllertMessageCartTable = "";
+
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        CartPage cartPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).addToCart().
+                changeProductQuantity(0, quantity);
+        cartPage.acceptCookieCartPage();
+
+        try {
+
+            JavascriptExecutor jse = (JavascriptExecutor) driver;
+
+            if (driver instanceof JavascriptExecutor) {
+
+                quantityAllertMessageCartTable = (String)jse.executeScript(
+                        "const quantity = document.querySelector(\"input#cart_items_0_quantity\");"
+                         + "message = quantity.validationMessage;" +
+                           "return message;");
+                System.out.println(quantityAllertMessageCartTable);
+
+            } else {
+
+                throw new IllegalStateException("This driver does not support JavaScript!");
+            }
+
+            productQuantityInCart = cartPage.calculateTotalAmount().getProductQuantity(0);
 
 
 
+        } catch (Exception e) {}
 
-
+        assertTrue(quantityAllertMessageCartTable.equals(message), "Nie wyswietla sie poprawny alert przy za malej ilosci");
+        assertTrue(productQuantityInCart.contains(quantity), "Strona przeladowuje sie przy za małej ilosci");
 
 
     }
