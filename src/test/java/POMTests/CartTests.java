@@ -4,6 +4,7 @@ import PageObjects.CartPage;
 import PageObjects.CategoryPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.ProductPage;
+import com.sun.tools.javac.Main;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -46,7 +47,7 @@ public class CartTests {
     @AfterEach
     public void closeDriver() {
 
-        //driver.quit();
+        driver.quit();
     }
 
     @Test
@@ -160,7 +161,7 @@ public class CartTests {
 
 
     @Test
-    public void settingIncorrectQuantityCartPageTest() {
+    public void setIncorrectQuantityCartPageTest() {
 
         String category = categories[4];
         String symbol = "sa32";
@@ -202,6 +203,29 @@ public class CartTests {
         assertTrue(productQuantityInCart.contains(quantity), "Strona przeladowuje sie przy za małej ilosci");
 
 
+    }
+
+
+    @Test
+    public void deleteOneProductFromCartPageTest(){
+
+        String category = categories[4];
+        String symbol = "sa32";
+        String optionalSymbol = "";
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        mainCategoryPage.acceptCookieMainCategoryPage();
+
+        CartPage cartPage = mainCategoryPage.viewCategoryByName(category).
+                            addToCartByCategoryPage(symbol).deleteFromCartPage(symbol);
+
+        try{
+
+            optionalSymbol = cartPage.getProductSymbolInCart(0);
+        }
+        catch (IndexOutOfBoundsException e2) {}
+
+        Assertions.assertFalse(optionalSymbol.equals(symbol), "Nie udalo sie usunac produktu " + symbol);
     }
 
 }

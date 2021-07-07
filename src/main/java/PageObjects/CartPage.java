@@ -107,4 +107,12 @@ public class CartPage {
         driver.findElement(standardRealizationTypeOptionSelector).click();
         return cartPage;
     }
+
+    public CartPage deleteFromCartPage(String symbol){
+
+        By removeButtonCartPageSelector =
+                new By.ByXPath(".//a[contains(text(), '" + symbol + "')]/parent::h2/following-sibling::a");
+        driver.findElement(removeButtonCartPageSelector).click();
+        return this;
+    }
 }

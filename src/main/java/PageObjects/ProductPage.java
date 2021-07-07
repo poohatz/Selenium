@@ -36,12 +36,17 @@ public class ProductPage {
     }
 
     public void acceptCookieProductPage(){
+
         wait = new WebDriverWait(driver,5);
+
         try {
+
             acceptCookie = driver.findElement(acceptCookieSelector);
             wait.until(ExpectedConditions.elementToBeClickable(acceptCookie));
             if(acceptCookie!=null) acceptCookie.click();
-        } catch (Exception E){
+        }
+        catch (Exception E){
+
             System.out.println("Zgoda RODO zaakceptowana wczesniej");
         };
     }
