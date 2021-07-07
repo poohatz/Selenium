@@ -228,4 +228,36 @@ public class CartTests {
         Assertions.assertFalse(optionalSymbol.equals(symbol), "Nie udalo sie usunac produktu " + symbol);
     }
 
+    @Test
+    public void deleteSomeProductsFromCartPageTest(){
+
+        String category1 = categories[4];
+        String symbol1 = "sa32";
+        String optionalSymbol1 = "";
+
+        String category2 = categories[5];
+        String symbol2= "PL47";
+        String optionalSymbol2 = "";
+
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        mainCategoryPage.acceptCookieMainCategoryPage();
+
+        CartPage cartPage = mainCategoryPage.viewCategoryByName(category1).
+                addToCartByCategoryPage(symbol1);
+        cartPage = mainCategoryPage.viewCategoryByName(category2).addToCartByCategoryPage(symbol2).
+                   deleteFromCartPage(symbol2).deleteFromCartPage(symbol1);
+
+
+        try{
+
+            optionalSymbol1 = cartPage.getProductSymbolInCart(1);
+            optionalSymbol2 = cartPage.getProductSymbolInCart(0);
+        }
+        catch (IndexOutOfBoundsException e2) {}
+
+        Assertions.assertFalse(optionalSymbol1.equals(symbol1)||optionalSymbol2.equals(symbol2),
+                "Nie udalo sie usunac ktoregos z produktów " + symbol1 + " lub " + symbol2);
+    }
+
 }
