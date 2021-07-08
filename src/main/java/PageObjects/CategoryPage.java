@@ -1,6 +1,5 @@
 package PageObjects;
 
-import com.sun.tools.javac.Main;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,52 +8,32 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class CategoryPage {
+public class CategoryPage extends BasePage{
 
-    private WebDriver driver;
-    private WebDriverWait wait;
-    private String name;
-    private String category;
-    private String symbol;
-    public String lastProductSymbol;
-    private ProductPage productPage;
-    private CartPage cartPage;
-
-    private By categoryNameSelector = new By.ByCssSelector("h1");
-    private By productSymbolSelector;
-    private By acceptCookieSelector = new By.ByCssSelector("div#gdpr-warning > button.accept-cookie");
-    private By productSymbolFirstSelector = new By.ByCssSelector("ul#products > li > a > img");
-    private By productSymbolLastSelector = new By.ByCssSelector("p.description");
-    private WebElement acceptCookie;
-    private WebElement firstProductFromCategory;
-    public WebElement lastProductFromCategory;
+    private final By categoryNameSelector = new By.ByCssSelector("h1");
+    private final By productSymbolFirstSelector = new By.ByCssSelector("ul#products > li > a > img");
+    private final By productSymbolLastSelector = new By.ByCssSelector("p.description");
 
 
+    public CategoryPage(WebDriver driver) {
 
-    public CategoryPage(WebDriver driver, String name) {
-
-        this.name = name;
-        this.driver = driver;
+        super(driver);
     }
 
-    public CategoryPage() {
+    @Override
+    public void acceptCookie() {
+        super.acceptCookie();
     }
 
-    public void acceptCookieCategoryPage(){
-        wait = new WebDriverWait(driver,5);
-        try {
-            acceptCookie = driver.findElement(acceptCookieSelector);
-            wait.until(ExpectedConditions.elementToBeClickable(acceptCookie));
-            if(acceptCookie!=null) acceptCookie.click();
-        } catch (Exception E){
-            System.out.println("Zgoda RODO zaakceptowana wczesniej");
-        };
+    @Override
+    public MainCategoryPage viewMainPage() {
+        return super.viewMainPage();
     }
+
 
     public String getCategoryName(){
 
-        String categoryName = driver.findElement(this.categoryNameSelector).getText();
-        return categoryName;
+        return driver.findElement(this.categoryNameSelector).getText();
     }
 
     public String findLastProductSymbol(){
@@ -62,8 +41,8 @@ public class CategoryPage {
         List<WebElement> ProductsFromCategory = driver.findElements(productSymbolLastSelector);
         int index = ProductsFromCategory.size()-1;
 
-        lastProductFromCategory = ProductsFromCategory.get(index);
-        lastProductSymbol = lastProductFromCategory.getText();
+        WebElement lastProductFromCategory = ProductsFromCategory.get(index);
+        String lastProductSymbol = lastProductFromCategory.getText();
         lastProductSymbol = lastProductSymbol.substring(6);
         int spacePosition = lastProductSymbol.indexOf(" ");
         lastProductSymbol = lastProductSymbol.substring(0, spacePosition-1);
@@ -74,12 +53,12 @@ public class CategoryPage {
 
     public ProductPage viewProductBySymbol(String symbol){
 
-        productSymbolSelector = new By.ByCssSelector("img[alt='Model " + symbol + "']");
+        By productSymbolSelector = new By.ByCssSelector("img[alt='Model " + symbol + "']");
         wait = new WebDriverWait(driver, 7);
-        this.acceptCookieCategoryPage();
+        super.acceptCookie();
 
         wait.until(ExpectedConditions.elementToBeClickable(productSymbolSelector));
-        productPage = new ProductPage(driver,symbol);
+        ProductPage productPage = new ProductPage(driver, symbol);
         driver.findElement(productSymbolSelector).click();
         return productPage;
     }
@@ -90,23 +69,23 @@ public class CategoryPage {
         ProductPage productPage = new ProductPage(driver);
         wait = new WebDriverWait(driver,5);
         wait.until(ExpectedConditions.elementToBeClickable(productSymbolFirstSelector));
-        firstProductFromCategory = driver.findElements(productSymbolFirstSelector).get(0);
+        WebElement firstProductFromCategory = driver.findElements(productSymbolFirstSelector).get(0);
         firstProductFromCategory.click();
 
         String productSymbol = productPage.getProductSymbol();
         System.out.println(productSymbol);
-        productPage = new ProductPage(driver,productSymbol);
+        productPage = new ProductPage(driver, productSymbol);
         return productPage;
 
     }
 
     public CartPage addToCartByCategoryPage(String symbol){
 
-        this.acceptCookieCategoryPage();
+        this.acceptCookie();
 
         By orderButtonCategoryPage = new By.ByXPath(".//a/img[@alt='Model " + symbol + "']/parent::a/parent::li/form/button");
         driver.findElement(orderButtonCategoryPage).click();
-        cartPage = new CartPage(driver);
+        CartPage cartPage = new CartPage(driver);
         cartPage.viewCartPage();
         return cartPage;
     }

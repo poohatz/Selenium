@@ -13,9 +13,8 @@ import org.openqa.selenium.interactions.Actions;
 import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DisplayTests {
+public class DisplayTests extends BaseTests{
 
-    WebDriver driver;
     MainCategoryPage mainCategoryPage;
     CategoryPage categoryPage;
     ProductPage productPage;
@@ -66,6 +65,12 @@ public class DisplayTests {
             assertTrue(imageNextFullProductGalleryFile.equals(imageNextThumbnailProductGalleryFile), "Duze zdjecie po kliknieciu miniaturki " + i +" nie wyswietla sie prawidlowo");
 
         }
+    }
+
+    @Test
+    public void displayNumberOfProductsInCartTest(){
+
+
     }
 
 

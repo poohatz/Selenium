@@ -14,10 +14,8 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class NavigationTests {
+public class NavigationTests extends BaseTests{
 
-    WebDriver driver;
-    //Wait wait = new WebDriverWait(driver,10);
     MainCategoryPage mainCategoryPage;
     CategoryPage categoryPage;
     ProductPage productPage;
@@ -26,24 +24,7 @@ public class NavigationTests {
                             "Royal Style", "Simple Beauty", "Classic Elegance", "Colors of Love", "Passion&Fun"};
     String[] products = {"CL06","mm04","FB01", "jt100", "PL47", "sa32","CL05", "Cl37", "mm07"};
 
-    @BeforeEach
-    public void testSetUp(){
 
-        System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver.exe");
-        driver = new ChromeDriver();
-
-        //driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-
-        driver.manage().window().maximize();
-        driver.navigate().to("https://www.decarte.com.pl/sklep/zaproszenia-slubne");
-
-    }
-
-    @AfterEach
-    public void closeDriver() {
-        driver.quit();
-    }
 
 
     @Test
@@ -80,7 +61,7 @@ public class NavigationTests {
         String category = categories[1];
 
         mainCategoryPage = new MainCategoryPage(driver);
-        categoryPage = new CategoryPage(driver, category);
+        categoryPage = new CategoryPage(driver);
         productPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol);
 
         String productSymbolNext = productPage.viewNextProductPage().getProductSymbol();
@@ -97,7 +78,7 @@ public class NavigationTests {
         String category = categories[1];
 
         mainCategoryPage = new MainCategoryPage(driver);
-        categoryPage = new CategoryPage(driver, category);
+        categoryPage = new CategoryPage(driver);
         productPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol);
 
         String productSymbolPrevious = productPage.viewPreviousProductPage().getProductSymbol();
@@ -114,7 +95,9 @@ public class NavigationTests {
         String category = categories[8];
 
         mainCategoryPage = new MainCategoryPage(driver);
-        categoryPage = new CategoryPage(driver, category);
+        categoryPage = new CategoryPage(driver);
+
+        mainCategoryPage.acceptCookie();
 
         CategoryPage categoryPage = mainCategoryPage.viewCategoryByName(category);
         String productSymbolLast = categoryPage.findLastProductSymbol();

@@ -4,27 +4,17 @@ import PageObjects.CartPage;
 import PageObjects.CategoryPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.ProductPage;
-import com.sun.tools.javac.Main;
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-
 import java.util.concurrent.TimeUnit;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CartTests {
-
-    WebDriver driver;
-    MainCategoryPage mainCategoryPage;
-    CategoryPage categoryPage;
-    ProductPage productPage;
+public class CartTests extends BaseTests{
 
     String[] categories = {"Nowości", "Mystic Moment", "Folk&Boho", "Wild Garden", "Vintage&Nature", "Pastellove",
             "Royal Style", "Simple Beauty", "Classic Elegance", "Colors of Love", "Passion&Fun"};
@@ -36,9 +26,7 @@ public class CartTests {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         driver = new ChromeDriver();
 
-        //driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-
+        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.navigate().to("https://www.decarte.com.pl/sklep/zaproszenia-slubne");
 
@@ -151,7 +139,7 @@ public class CartTests {
 
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         CartPage cartPage = mainCategoryPage.viewCategoryByName(category1).addToCartByCategoryPage(symbol1).changeProductQuantity(0, "78");
-        cartPage.acceptCookieCartPage();
+        cartPage.acceptCookie();
         String totalAmountInCartPage = cartPage.setDeliveryType().setRealizationType().calculateTotalAmount().getTotalAmount();
         mainCategoryPage.viewCategoryByName(category2).viewProductBySymbol(symbol2).addToCart().changeProductQuantity(1, "123");
         totalAmountInCartPage = cartPage.calculateTotalAmount().getTotalAmount();
@@ -174,7 +162,7 @@ public class CartTests {
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         CartPage cartPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).addToCart().
                 changeProductQuantity(0, quantity);
-        cartPage.acceptCookieCartPage();
+        cartPage.acceptCookie();
 
         try {
 
@@ -214,7 +202,7 @@ public class CartTests {
         String optionalSymbol = "";
 
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        mainCategoryPage.acceptCookieMainCategoryPage();
+        mainCategoryPage.acceptCookie();
 
         CartPage cartPage = mainCategoryPage.viewCategoryByName(category).
                             addToCartByCategoryPage(symbol).deleteFromCartPage(symbol);
@@ -241,7 +229,7 @@ public class CartTests {
 
 
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        mainCategoryPage.acceptCookieMainCategoryPage();
+        mainCategoryPage.acceptCookie();
 
         CartPage cartPage = mainCategoryPage.viewCategoryByName(category1).
                 addToCartByCategoryPage(symbol1);
