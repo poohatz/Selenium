@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class CartPage extends BasePage{
 
     private final By productInCartSymbolSelector = new By.ByCssSelector("h2 > a");
-    private final By cartSelector = new By.ByCssSelector("a > img[alt='Koszyk']");
     private final By calculateTotalAmountButtonSelector = new By.ByCssSelector("#cart_save");
     private final By totalAmountSelector = new By.ByCssSelector("div.cart-total-price > strong");
     private final By payuDeliveryTypeOptionSelector = new By.ByCssSelector("#cart_deliveryType_4");
@@ -30,6 +29,16 @@ public class CartPage extends BasePage{
     @Override
     public MainCategoryPage viewMainPage() {
         return super.viewMainPage();
+    }
+
+    @Override
+    public String getNumberOfProductsDisplay() {
+        return super.getNumberOfProductsDisplay();
+    }
+
+    @Override
+    public CartPage viewCartPage() {
+        return super.viewCartPage();
     }
 
     public String getProductSymbolInCart(int index) {
@@ -75,15 +84,6 @@ public class CartPage extends BasePage{
 
     }
 
-    public CartPage viewCartPage(){
-
-        this.acceptCookie();
-
-        CartPage cartPage = new CartPage(driver);
-        driver.findElement(cartSelector).click();
-        return this;
-    }
-
     public CartPage setDeliveryType(){
 
         CartPage cartPage = new CartPage(driver);
@@ -105,4 +105,6 @@ public class CartPage extends BasePage{
         driver.findElement(removeButtonCartPageSelector).click();
         return this;
     }
+
+
 }

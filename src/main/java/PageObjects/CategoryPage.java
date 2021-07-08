@@ -30,6 +30,15 @@ public class CategoryPage extends BasePage{
         return super.viewMainPage();
     }
 
+    @Override
+    public String getNumberOfProductsDisplay() {
+        return super.getNumberOfProductsDisplay();
+    }
+
+    @Override
+    public CartPage viewCartPage() {
+        return super.viewCartPage();
+    }
 
     public String getCategoryName(){
 

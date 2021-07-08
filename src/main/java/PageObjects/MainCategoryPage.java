@@ -21,6 +21,16 @@ public class MainCategoryPage extends BasePage {
         return super.viewMainPage();
     }
 
+    @Override
+    public String getNumberOfProductsDisplay() {
+        return super.getNumberOfProductsDisplay();
+    }
+
+    @Override
+    public CartPage viewCartPage() {
+        return super.viewCartPage();
+    }
+
     public CategoryPage viewCategoryByName(String categoryName){
 
         CategoryPage categoryPage = new CategoryPage(driver);

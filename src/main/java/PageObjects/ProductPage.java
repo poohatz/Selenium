@@ -32,6 +32,26 @@ public class ProductPage extends BasePage{
 
     }
 
+    @Override
+    public void acceptCookie() {
+        super.acceptCookie();
+    }
+
+    @Override
+    public MainCategoryPage viewMainPage() {
+        return super.viewMainPage();
+    }
+
+    @Override
+    public String getNumberOfProductsDisplay() {
+        return super.getNumberOfProductsDisplay();
+    }
+
+    @Override
+    public CartPage viewCartPage() {
+        return super.viewCartPage();
+    }
+
 
     public String getProductSymbol() {
 
