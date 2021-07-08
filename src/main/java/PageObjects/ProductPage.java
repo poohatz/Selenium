@@ -52,6 +52,11 @@ public class ProductPage extends BasePage{
         return super.viewCartPage();
     }
 
+    @Override
+    public String getMessageWhileCartEmpty() {
+        return super.getMessageWhileCartEmpty();
+    }
+
 
     public String getProductSymbol() {
 

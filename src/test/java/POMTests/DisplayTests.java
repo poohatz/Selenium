@@ -133,6 +133,16 @@ public class DisplayTests extends BaseTests{
 
     }
 
+    @Test
+    public void displayCartWithoutContentMessageTest(){
+
+        String message = "Brak produktów w koszyku.";
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        String messageWhileCartEmpty = mainCategoryPage.viewCartPage().getMessageWhileCartEmpty();
+
+        assertEquals(message, messageWhileCartEmpty, "Komunikat w pustym koszyku nie zgadza się z oczekiwanym");
+    }
 
 
 }

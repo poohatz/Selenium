@@ -42,6 +42,11 @@ public class CartPage extends BasePage{
         return super.viewCartPage();
     }
 
+    @Override
+    public String getMessageWhileCartEmpty() {
+        return super.getMessageWhileCartEmpty();
+    }
+
     public String getProductSymbolInCart(int index) {
 
         String productInCartSymbol = driver.findElements(productInCartSymbolSelector).get(index).getText();

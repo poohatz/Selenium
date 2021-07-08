@@ -16,6 +16,7 @@ public abstract class BasePage {
     protected By acceptCookieSelector = new By.ByCssSelector("div#gdpr-warning > button.accept-cookie");
     private final By numberOfProductsDisplaySelector = new By.ByCssSelector("span.cart-number");
     private final By cartSelector = new By.ByCssSelector("a > img[alt='Koszyk']");
+    private final By messageWhileCartEmptySelector = new By.ByCssSelector("#cart_items");
 
 
 
@@ -68,5 +69,11 @@ public abstract class BasePage {
         CartPage cartPage = new CartPage(driver);
         driver.findElement(cartSelector).click();
         return cartPage;
+    }
+
+    public String getMessageWhileCartEmpty(){
+
+        CartPage cartePage = new CartPage(driver);
+        return driver.findElement(messageWhileCartEmptySelector).getText();
     }
 }

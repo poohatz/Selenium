@@ -40,10 +40,16 @@ public class CategoryPage extends BasePage{
         return super.viewCartPage();
     }
 
+    @Override
+    public String getMessageWhileCartEmpty() {
+        return super.getMessageWhileCartEmpty();
+    }
+
     public String getCategoryName(){
 
         return driver.findElement(this.categoryNameSelector).getText();
     }
+
 
     public String findLastProductSymbol(){
 

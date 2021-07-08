@@ -31,6 +31,11 @@ public class MainCategoryPage extends BasePage {
         return super.viewCartPage();
     }
 
+    @Override
+    public String getMessageWhileCartEmpty() {
+        return super.getMessageWhileCartEmpty();
+    }
+
     public CategoryPage viewCategoryByName(String categoryName){
 
         CategoryPage categoryPage = new CategoryPage(driver);
