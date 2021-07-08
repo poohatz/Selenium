@@ -112,4 +112,20 @@ public class OrderingTests extends BaseTests {
         assertTrue(deliveryTypeMessageCartTable.equals(message), "Nie wyswietla sie poprawny alert przy nie wybranym trybie realizacji");
 
     }
+
+    @Test
+    public void orderProductsFromCartPageHappyPath(){
+
+        String category = categories[4];
+        String symbol = "sa32";
+        String heading = "Krok 1 z 2: Podaj dane do wysyłki";
+        String headingStepOneOrderingPage = "";
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        headingStepOneOrderingPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol).
+                setRealizationType().setDeliveryType().saveAndOrderProductsFromCart().getHeadingStepOneOrderingPage();
+
+        assertEquals(heading, headingStepOneOrderingPage, "Naglowek w pierwszym kroku zamowienia nie zgadza sie");
+
+    }
 }
