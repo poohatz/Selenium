@@ -11,6 +11,9 @@ public class BaseTests {
 
     protected WebDriver driver;
 
+    protected final String[] categories = {"Nowości","Mystic Moment", "Folk&Boho", "Wild Garden", "Vintage&Nature", "Pastellove",
+            "Royal Style", "Simple Beauty", "Classic Elegance", "Colors of Love", "Passion&Fun"};
+
     @BeforeEach
     public void testSetUp(){
 
@@ -27,6 +30,6 @@ public class BaseTests {
 
     @AfterEach
     public void closeDriver() {
-        driver.quit();
+        //driver.quit();
     }
 }

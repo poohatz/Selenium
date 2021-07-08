@@ -13,6 +13,7 @@ public class CartPage extends BasePage{
     private final By totalAmountSelector = new By.ByCssSelector("div.cart-total-price > strong");
     private final By payuDeliveryTypeOptionSelector = new By.ByCssSelector("#cart_deliveryType_4");
     private final By standardRealizationTypeOptionSelector = new By.ByCssSelector("#cart_realizationType_1");
+    private final By saveAndOrderButtonSelector = new By.ByCssSelector("#cart_save_and_order");
 
     private String symbol;
     private WebElement productQuantityInCart;
@@ -104,6 +105,15 @@ public class CartPage extends BasePage{
                 new By.ByXPath(".//a[contains(text(), '" + symbol + "')]/parent::h2/following-sibling::a");
         driver.findElement(removeButtonCartPageSelector).click();
         return this;
+    }
+
+    public OrderingPage saveAndOrderProductsFromCart(){
+
+        this.acceptCookie();
+        OrderingPage orderingPage = new OrderingPage(driver);
+        driver.findElement(saveAndOrderButtonSelector).click();
+        return orderingPage;
+
     }
 
 

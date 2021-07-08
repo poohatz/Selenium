@@ -4,33 +4,17 @@ import PageObjects.CartPage;
 import PageObjects.CategoryPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.ProductPage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NavigationTests extends BaseTests{
 
-    MainCategoryPage mainCategoryPage;
-    CategoryPage categoryPage;
-    ProductPage productPage;
-
-    String[] categories = {"Nowości","Mystic Moment", "Folk&Boho", "Wild Garden", "Vintage&Nature", "Pastellove",
-                            "Royal Style", "Simple Beauty", "Classic Elegance", "Colors of Love", "Passion&Fun"};
-    String[] products = {"CL06","mm04","FB01", "jt100", "PL47", "sa32","CL05", "Cl37", "mm07"};
-
-
-
 
     @Test
     public void navigateCategoryTest(){
 
-        mainCategoryPage = new MainCategoryPage(driver);
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
 
         for(int i=0; i<categories.length; i++){
 
@@ -47,7 +31,7 @@ public class NavigationTests extends BaseTests{
         String symbol = "CL06";
         String category = categories[9];
 
-        mainCategoryPage = new MainCategoryPage(driver);
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         String productSymbol = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).getProductSymbol();
 
         assertTrue(productSymbol.contains(symbol), "Strona produktu nie działa prawidłowo");
@@ -60,9 +44,9 @@ public class NavigationTests extends BaseTests{
         String symbolNext = "mm07";
         String category = categories[1];
 
-        mainCategoryPage = new MainCategoryPage(driver);
-        categoryPage = new CategoryPage(driver);
-        productPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol);
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        CategoryPage categoryPage = new CategoryPage(driver);
+        ProductPage productPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol);
 
         String productSymbolNext = productPage.viewNextProductPage().getProductSymbol();
 
@@ -77,9 +61,9 @@ public class NavigationTests extends BaseTests{
         String symbolPrevious = "MM20200003";
         String category = categories[1];
 
-        mainCategoryPage = new MainCategoryPage(driver);
-        categoryPage = new CategoryPage(driver);
-        productPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol);
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        CategoryPage categoryPage = new CategoryPage(driver);
+        ProductPage productPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol);
 
         String productSymbolPrevious = productPage.viewPreviousProductPage().getProductSymbol();
 
@@ -94,12 +78,12 @@ public class NavigationTests extends BaseTests{
         //String symbolLast = "WG208";
         String category = categories[8];
 
-        mainCategoryPage = new MainCategoryPage(driver);
-        categoryPage = new CategoryPage(driver);
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        CategoryPage categoryPage = new CategoryPage(driver);
 
         mainCategoryPage.acceptCookie();
 
-        CategoryPage categoryPage = mainCategoryPage.viewCategoryByName(category);
+        categoryPage = mainCategoryPage.viewCategoryByName(category);
         String productSymbolLast = categoryPage.findLastProductSymbol();
         String symbolLast = productSymbolLast;
 

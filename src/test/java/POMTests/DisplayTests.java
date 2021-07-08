@@ -3,46 +3,12 @@ package POMTests;
 import PageObjects.CategoryPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.ProductPage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-
-import java.util.concurrent.TimeUnit;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DisplayTests extends BaseTests{
 
-    MainCategoryPage mainCategoryPage;
-    CategoryPage categoryPage;
-    ProductPage productPage;
-
-    String[] categories = {"Nowości","Mystic Moment", "Folk&Boho", "Wild Garden", "Vintage&Nature", "Pastellove",
-            "Royal Style", "Simple Beauty", "Classic Elegance", "Colors of Love", "Passion&Fun"};
-
-
-    @BeforeEach
-    public void testSetUp(){
-
-        System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver.exe");
-        driver = new ChromeDriver();
-
-        //driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-
-        driver.manage().window().maximize();
-        driver.navigate().to("https://www.decarte.com.pl/sklep/zaproszenia-slubne");
-
-    }
-
-    @AfterEach
-    public void closeDriver() {
-        driver.quit();
-    }
 
     @Test
     public void displayAndNavigateProductGalleryTest(){
