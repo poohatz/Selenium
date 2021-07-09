@@ -2,12 +2,17 @@ package PageObjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.WebElement;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class OrderingPage extends BasePage{
 
-    private final By headingStepOneOrderingPageSelector = new By.ByCssSelector("h1");
+    private final By headingOrderingPageSelector = new By.ByCssSelector("h1");
+    private final By dataFromSummaryOrderingPageSelector = new By.ByCssSelector("tr > td");
+    private final By returnToStepOneButtonOrderingPageSelector = new By.ByLinkText("Wróć do edycji danych");
     private final By nameInputInStepOneFormOrderingPageSelector = new By.ByCssSelector("#shipping_details_name");
     private final By addressInputInStepOneFormOrderingPageSelector = new By.ByCssSelector("#shipping_details_street");
     private final By cityInputInStepOneFormOrderingPageSelector = new By.ByCssSelector("#shipping_details_city");
@@ -49,9 +54,9 @@ public class OrderingPage extends BasePage{
         return super.getMessageWhileCartEmpty();
     }
 
-    public String getHeadingStepOneOrderingPage(){
+    public String getHeadingOrderingPage(){
 
-        return driver.findElement(headingStepOneOrderingPageSelector).getText();
+        return driver.findElement(headingOrderingPageSelector).getText();
 
     }
 
@@ -169,6 +174,28 @@ public class OrderingPage extends BasePage{
 
         driver.findElement(continueButtonInStepOneFormOrderingPageSelector).click();
         return this;
+    }
+
+    public Map<String, String> getAddressDataFromStepTwoOrderingPage(){
+
+        List <WebElement> summaryData= driver.findElements(dataFromSummaryOrderingPageSelector);
+        Map<String, String> summaryDataFromOrderingPage = new HashMap<>();
+        summaryDataFromOrderingPage.put("name", summaryData.get(0).getText());
+        summaryDataFromOrderingPage.put("address", summaryData.get(1).getText());
+        summaryDataFromOrderingPage.put("code", summaryData.get(2).getText());
+        summaryDataFromOrderingPage.put("city", summaryData.get(3).getText());
+        summaryDataFromOrderingPage.put("email", summaryData.get(4).getText());
+        summaryDataFromOrderingPage.put("tel", summaryData.get(5).getText());
+        summaryDataFromOrderingPage.put("nip", summaryData.get(6).getText());
+
+        return summaryDataFromOrderingPage;
+    }
+
+    public OrderingPage returnToStepOneOrderingPage(){
+
+        driver.findElement(returnToStepOneButtonOrderingPageSelector).click();
+        return this;
+
     }
 
 
