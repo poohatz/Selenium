@@ -368,4 +368,70 @@ public class OrderingTests extends BaseTests {
 
     }
 
+    @Test
+    public void finalizeOrderAndPayLaterInOrderingPageNegativeWays(){
+
+        String name = "Maria Biedronka";
+        String address = "Kowalewskiego 3/4";
+        String city = "Sopot";
+        String code = "83-123";
+        String email = "maria1@o2.pl";
+        String tel = "600123098";
+        String comments = "Prosze o formularz";
+        Boolean invoice = true;
+        String nip = "7333300440";
+        int deliveryType = 1 ;
+        int realizationType = 1;
+
+        String category = categories[4];
+        String symbol = "sa32";
+        String message1 = "Zaznacz to pole, jeśli chcesz kontynuować.";
+        String termsAlertMessage = "";
+        String rodoAlertMessage = "";
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+
+
+        //case 1 :: Finalizing without accepting terms and rodo
+
+        OrderingPage orderingPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol).
+                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().fillNameInStepOneForm(name).
+                fillAddressInStepOneForm(address).fillCityInStepOneForm(city).fillCodeInStepOneForm(code).
+                fillEmailInStepOneForm(email).fillTelInStepOneForm(tel).isInvoiceNeededOptionSteoOneForm(invoice).
+                fillNipInStepOneForm(nip).saveAndContinueOrderingPage().finalizeAndConfirmOrder();
+
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        termsAlertMessage = (String) jse.executeScript(
+                "const terms = document.querySelector(\"#terms\");"
+                        + "message = terms.validationMessage; return message;");
+
+        assertEquals(message1, termsAlertMessage, "Komunikat jest bledny");
+
+
+        //case 2 :: Finalizing without accepting terms
+
+        orderingPage = orderingPage.viewMainPage().viewCategoryByName(category).addToCartByCategoryPage(symbol).
+                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().
+                saveAndContinueOrderingPage().checkRodoConfirmation().finalizeAndConfirmOrder();
+
+        termsAlertMessage = (String) jse.executeScript(
+                "const terms = document.querySelector(\"#terms\");"
+                        + "message = terms.validationMessage; return message;");
+
+        assertEquals(message1, termsAlertMessage, "Komunikat jest bledny");
+
+
+        //case 3 :: Finalizing without accepting rodo
+
+        orderingPage = orderingPage.viewMainPage().viewCategoryByName(category).addToCartByCategoryPage(symbol).
+                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().
+                saveAndContinueOrderingPage().checkTermsConfirmation().finalizeAndConfirmOrder();
+
+        rodoAlertMessage = (String) jse.executeScript(
+                "const rodo = document.querySelector(\"#personal-data\");"
+                        + "message = rodo.validationMessage; return message;");
+
+        assertEquals(message1, rodoAlertMessage, "Komunikat jest bledny");
+    }
+
 }

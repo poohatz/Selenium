@@ -31,7 +31,7 @@ public abstract class BasePage {
 
     public void acceptCookie(){
 
-        wait = new WebDriverWait(driver,5);
+        wait = new WebDriverWait(driver,10);
 
         try {
 
