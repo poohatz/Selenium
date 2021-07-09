@@ -1,5 +1,6 @@
 package POMTests;
 
+import PageObjects.CartPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.OrderingPage;
 import org.junit.jupiter.api.Test;
@@ -53,12 +54,14 @@ public class OrderingTests extends BaseTests {
 
         String category = categories[4];
         String symbol = "sa32";
+        int deliveryType = 0;
+
         String message = "Wybierz jedną z opcji.";
         String realizationTypeMessageCartTable = "";
 
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         OrderingPage orderingPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).
-                addToCart().setDeliveryType().saveAndOrderProductsFromCart();
+                addToCart().setDeliveryType(deliveryType).saveAndOrderProductsFromCart();
 
         try {
 
@@ -87,12 +90,14 @@ public class OrderingTests extends BaseTests {
 
         String category = categories[4];
         String symbol = "sa32";
+        int realizationType = 1;
+
         String message = "Wybierz jedną z opcji.";
         String deliveryTypeMessageCartTable = "";
 
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         OrderingPage orderingPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).
-                addToCart().setRealizationType().saveAndOrderProductsFromCart();
+                addToCart().setRealizationType(realizationType).saveAndOrderProductsFromCart();
 
         try {
 
@@ -122,12 +127,15 @@ public class OrderingTests extends BaseTests {
 
         String category = categories[4];
         String symbol = "sa32";
+        int deliveryType = 0;
+        int realizationType = 1;
+
         String heading = "Krok 1 z 2: Podaj dane do wysyłki";
         String headingStepOneOrderingPage = "";
 
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         headingStepOneOrderingPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol).
-                setRealizationType().setDeliveryType().saveAndOrderProductsFromCart().getHeadingOrderingPage();
+                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().getHeadingOrderingPage();
 
         assertEquals(heading, headingStepOneOrderingPage, "Naglowek w pierwszym kroku zamowienia nie zgadza sie");
 
@@ -148,6 +156,8 @@ public class OrderingTests extends BaseTests {
         String comments = "Prosze o formularz";
         Boolean invoice = true;
         String nip = "7333300440";
+        int deliveryType = 0;
+        int realizationType = 1;
 
         String category = categories[4];
         String symbol = "sa32";
@@ -172,7 +182,7 @@ public class OrderingTests extends BaseTests {
         mainCategoryPage.acceptCookie();
 
         OrderingPage orderingPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol).
-                setRealizationType().setDeliveryType().saveAndOrderProductsFromCart().fillAddressInStepOneForm(address).fillCityInStepOneForm(city).
+                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().fillAddressInStepOneForm(address).fillCityInStepOneForm(city).
                 fillCodeInStepOneForm(code).fillEmailInStepOneForm(email).fillTelInStepOneForm(tel).
                 isInvoiceNeededOptionSteoOneForm(invoice).fillNipInStepOneForm(nip).saveAndContinueOrderingPage();
 
@@ -277,6 +287,8 @@ public class OrderingTests extends BaseTests {
         String comments = "Prosze o formularz";
         Boolean invoice = true;
         String nip = "7333300440";
+        int deliveryType = 0;
+        int realizationType = 1;
 
         String category = categories[4];
         String symbol = "sa32";
@@ -290,7 +302,7 @@ public class OrderingTests extends BaseTests {
         mainCategoryPage.acceptCookie();
 
         headingStepTwoOrderingPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol).
-                setRealizationType().setDeliveryType().saveAndOrderProductsFromCart().fillNameInStepOneForm(name).fillAddressInStepOneForm(address).fillCityInStepOneForm(city).
+                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().fillNameInStepOneForm(name).fillAddressInStepOneForm(address).fillCityInStepOneForm(city).
                 fillCodeInStepOneForm(code).fillEmailInStepOneForm(email).fillTelInStepOneForm(tel).
                 isInvoiceNeededOptionSteoOneForm(invoice).fillNipInStepOneForm(nip).saveAndContinueOrderingPage().getHeadingOrderingPage();
 
@@ -321,9 +333,38 @@ public class OrderingTests extends BaseTests {
 
         assertEquals(heading, headingStepTwoOrderingPage, "Naglowek w drugim kroku zamowienia nie zgadza sie");
 
+    }
 
+    @Test
+    public void finalizeOrderAndPayLaterInOrderingPagePositiveWay(){
 
+        String name = "Maria Biedronka";
+        String address = "Kowalewskiego 3/4";
+        String city = "Sopot";
+        String code = "83-123";
+        String email = "maria1@o2.pl";
+        String tel = "600123098";
+        String comments = "Prosze o formularz";
+        Boolean invoice = true;
+        String nip = "7333300440";
+        int deliveryType = 1 ;
+        int realizationType = 1;
 
+        String category = categories[4];
+        String symbol = "sa32";
+        String heading = "Dziękujemy za złożenie zamówienia w naszej firmie!";
+        String finalOrderConfirmationHeading = "";
+
+        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+
+        finalOrderConfirmationHeading = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol).
+                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().fillNameInStepOneForm(name).
+                fillAddressInStepOneForm(address).fillCityInStepOneForm(city).
+                fillCodeInStepOneForm(code).fillEmailInStepOneForm(email).fillTelInStepOneForm(tel).
+                isInvoiceNeededOptionSteoOneForm(invoice).fillNipInStepOneForm(nip).saveAndContinueOrderingPage().
+                checkRodoConfirmation().checkTermsConfirmation().finalizeAndConfirmOrder().getFinalHeadingOrderingPage();
+
+        assertEquals(heading, finalOrderConfirmationHeading, "Końcowe potwierdzenie zamówienia wyświetla się niepoprawnie");
 
     }
 

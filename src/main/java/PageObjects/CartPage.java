@@ -11,8 +11,8 @@ public class CartPage extends BasePage{
     private final By productInCartSymbolSelector = new By.ByCssSelector("h2 > a");
     private final By calculateTotalAmountButtonSelector = new By.ByCssSelector("#cart_save");
     private final By totalAmountSelector = new By.ByCssSelector("div.cart-total-price > strong");
-    private final By payuDeliveryTypeOptionSelector = new By.ByCssSelector("#cart_deliveryType_4");
-    private final By standardRealizationTypeOptionSelector = new By.ByCssSelector("#cart_realizationType_1");
+    private final By deliveryTypeOptionSelector = new By.ByCssSelector("input[type='radio'][name='cart[deliveryType]']");
+    private final By realizationTypeOptionSelector = new By.ByCssSelector("input[type='radio'][name='cart[realizationType]']");
     private final By saveAndOrderButtonSelector = new By.ByCssSelector("#cart_save_and_order");
 
     private String symbol;
@@ -90,17 +90,23 @@ public class CartPage extends BasePage{
 
     }
 
-    public CartPage setDeliveryType(){
+    public CartPage setDeliveryType(int i){
 
         CartPage cartPage = new CartPage(driver);
-        driver.findElement(payuDeliveryTypeOptionSelector).click();
+        cartPage.acceptCookie();
+        wait = new WebDriverWait(driver,5);
+        wait.until(ExpectedConditions.elementToBeClickable(deliveryTypeOptionSelector));
+        driver.findElements(deliveryTypeOptionSelector).get(i).click();
         return cartPage;
     }
 
-    public CartPage setRealizationType(){
+    public CartPage setRealizationType(int i){
 
         CartPage cartPage = new CartPage(driver);
-        driver.findElement(standardRealizationTypeOptionSelector).click();
+        cartPage.acceptCookie();
+        wait = new WebDriverWait(driver,5);
+        wait.until(ExpectedConditions.elementToBeClickable(realizationTypeOptionSelector));
+        driver.findElements(realizationTypeOptionSelector).get(i).click();
         return cartPage;
     }
 

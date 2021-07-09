@@ -111,11 +111,13 @@ public class CartTests extends BaseTests{
         String quantity2 = "123";
 
         String totalAmount = "1 374,60";
+        int deliveryType = 0;
+        int realizationType = 1;
 
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         CartPage cartPage = mainCategoryPage.viewCategoryByName(category1).addToCartByCategoryPage(symbol1).changeProductQuantity(0, "78");
         cartPage.acceptCookie();
-        String totalAmountInCartPage = cartPage.setDeliveryType().setRealizationType().calculateTotalAmount().getTotalAmount();
+        String totalAmountInCartPage = cartPage.setDeliveryType(deliveryType).setRealizationType(realizationType).calculateTotalAmount().getTotalAmount();
         mainCategoryPage.viewCategoryByName(category2).viewProductBySymbol(symbol2).addToCart().changeProductQuantity(1, "123");
         totalAmountInCartPage = cartPage.calculateTotalAmount().getTotalAmount();
 

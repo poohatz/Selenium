@@ -11,6 +11,8 @@ import java.util.Map;
 public class OrderingPage extends BasePage{
 
     private final By headingOrderingPageSelector = new By.ByCssSelector("h1");
+    private final By headingOrderConfirmationOrderingPageSelector = new By.ByCssSelector("div[class='col-12 col-md-9'] > h3");
+    private final By finalOrderButtonOrderingPageSelector = new By.ByCssSelector("input.btn.btn-warning");
     private final By dataFromSummaryOrderingPageSelector = new By.ByCssSelector("tr > td");
     private final By returnToStepOneButtonOrderingPageSelector = new By.ByLinkText("Wróć do edycji danych");
     private final By nameInputInStepOneFormOrderingPageSelector = new By.ByCssSelector("#shipping_details_name");
@@ -23,6 +25,8 @@ public class OrderingPage extends BasePage{
     private final By invoiceOptionInStepOneFormOrderingPageSelector = new By.ByCssSelector("#shipping_details_hasInvoice");
     private final By nipInputInStepOneFormOrderingPageSelector = new By.ByCssSelector("#shipping_details_taxId");
     private final By continueButtonInStepOneFormOrderingPageSelector = new By.ByCssSelector("#shipping_details_save");
+    private final By termsConfirmationCheckboxOrderingPageSelector = new By.ByCssSelector("#terms");
+    private final By rodoConfirmationChceckboxOrderingPageSelector = new By.ByCssSelector("#personal-data");
 
 
     public OrderingPage(WebDriver driver) {
@@ -57,6 +61,12 @@ public class OrderingPage extends BasePage{
     public String getHeadingOrderingPage(){
 
         return driver.findElement(headingOrderingPageSelector).getText();
+
+    }
+
+    public String getFinalHeadingOrderingPage(){
+
+        return driver.findElement(headingOrderConfirmationOrderingPageSelector).getText();
 
     }
 
@@ -197,6 +207,25 @@ public class OrderingPage extends BasePage{
         return this;
 
     }
+
+    public OrderingPage checkTermsConfirmation(){
+
+        driver.findElement(termsConfirmationCheckboxOrderingPageSelector).click();
+        return this;
+    }
+
+    public OrderingPage checkRodoConfirmation(){
+
+        driver.findElement(rodoConfirmationChceckboxOrderingPageSelector).click();
+        return this;
+    }
+
+    public OrderingPage finalizeAndConfirmOrder(){
+
+        driver.findElement(finalOrderButtonOrderingPageSelector).click();
+        return this;
+    }
+
 
 
 
