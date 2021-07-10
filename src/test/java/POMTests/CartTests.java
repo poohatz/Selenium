@@ -112,7 +112,7 @@ public class CartTests extends BaseTests{
         int deliveryType = 1;
         int realizationType = 2;
 
-        //including delivery value and realization value to test data
+        //totalAmountNormal after including delivery value and realization value to test data
         Float totalAmount = Float.parseFloat(totalAmountNormal.replace(",","."));
         if(deliveryType == 0 || deliveryType == 1) totalAmount += 15;
         if(deliveryType ==2) totalAmount += 20;
