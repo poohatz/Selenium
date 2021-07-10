@@ -2,6 +2,7 @@ package POMTests;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -10,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class BaseTests {
 
     protected WebDriver driver;
+    protected JavascriptExecutor jse;
 
     protected final String[] categories = {"Nowości","Mystic Moment", "Folk&Boho", "Wild Garden", "Vintage&Nature", "Pastellove",
             "Royal Style", "Simple Beauty", "Classic Elegance", "Colors of Love", "Passion&Fun"};
@@ -26,10 +28,12 @@ public class BaseTests {
         driver.manage().window().maximize();
         driver.navigate().to("https://www.decarte.com.pl/sklep/zaproszenia-slubne");
 
+        jse = (JavascriptExecutor) driver;
+
     }
 
     @AfterEach
     public void closeDriver() {
-        //driver.quit();
+        driver.quit();
     }
 }

@@ -68,7 +68,7 @@ public class CartPage extends BasePage{
     public CartPage calculateTotalAmount(){
 
         WebElement calculateTotalAmountButton = driver.findElement(calculateTotalAmountButtonSelector);
-        wait = new WebDriverWait(driver,5);
+        wait = new WebDriverWait(driver,7);
         wait.until(ExpectedConditions.elementToBeClickable(calculateTotalAmountButton));
         calculateTotalAmountButton.click();
         return this;

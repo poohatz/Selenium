@@ -4,123 +4,12 @@ import PageObjects.CartPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.OrderingPage;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.JavascriptExecutor;
-
-import java.util.HashMap;
 import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OrderingTests extends BaseTests {
 
-    @Test
-    public void orderProductWithoutCheckingDeliveryAndRealizationTypeCartPage() {
-
-        String category = categories[4];
-        String symbol = "sa32";
-        String message = "Wybierz jedną z opcji.";
-        String deliveryTypeMessageCartTable = "";
-
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        OrderingPage orderingPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).
-                addToCart().saveAndOrderProductsFromCart();
-
-        try {
-
-            JavascriptExecutor jse = (JavascriptExecutor) driver;
-
-            if (driver instanceof JavascriptExecutor) {
-
-                deliveryTypeMessageCartTable = (String) jse.executeScript(
-                        "const delivery = document.querySelector(\"#cart_deliveryType_4\");"
-                                + "message = delivery.validationMessage;" +
-                                "return message;");
-
-            } else {
-
-                throw new IllegalStateException("This driver does not support JavaScript!");
-            }
-
-        } catch (Exception e) {
-        }
-
-        assertTrue(deliveryTypeMessageCartTable.equals(message), "Nie wyswietla sie poprawny alert przy nie wybranych opcjach dostawy");
-
-    }
-
-    @Test
-    public void orderProductWithoutCheckingRealizationTypeCartPage() {
-
-        String category = categories[4];
-        String symbol = "sa32";
-        int deliveryType = 0;
-
-        String message = "Wybierz jedną z opcji.";
-        String realizationTypeMessageCartTable = "";
-
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        OrderingPage orderingPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).
-                addToCart().setDeliveryType(deliveryType).saveAndOrderProductsFromCart();
-
-        try {
-
-            JavascriptExecutor jse = (JavascriptExecutor) driver;
-
-            if (driver instanceof JavascriptExecutor) {
-
-                realizationTypeMessageCartTable = (String) jse.executeScript(
-                        "const realization = document.querySelector(\"#cart_realizationType_2\");"
-                                + "message = realization.validationMessage;" +
-                                "return message;");
-            } else {
-
-                throw new IllegalStateException("This driver does not support JavaScript!");
-            }
-
-        } catch (Exception e) {
-        }
-
-        assertTrue(realizationTypeMessageCartTable.equals(message), "Nie wyswietla sie poprawny alert przy nie wybranej opcji przesyłki");
-
-    }
-
-    @Test
-    public void orderProductWithoutCheckingDeliveryTypeCartPage() {
-
-        String category = categories[4];
-        String symbol = "sa32";
-        int realizationType = 1;
-
-        String message = "Wybierz jedną z opcji.";
-        String deliveryTypeMessageCartTable = "";
-
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        OrderingPage orderingPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).
-                addToCart().setRealizationType(realizationType).saveAndOrderProductsFromCart();
-
-        try {
-
-            JavascriptExecutor jse = (JavascriptExecutor) driver;
-
-            if (driver instanceof JavascriptExecutor) {
-
-                deliveryTypeMessageCartTable = (String) jse.executeScript(
-                        "const delivery = document.querySelector(\"#cart_deliveryType_4\");"
-                                + "message = delivery.validationMessage;" +
-                                "return message;");
-
-            } else {
-
-                throw new IllegalStateException("This driver does not support JavaScript!");
-            }
-
-        } catch (Exception e) {
-        }
-
-        assertTrue(deliveryTypeMessageCartTable.equals(message), "Nie wyswietla sie poprawny alert przy nie wybranym trybie realizacji");
-
-    }
 
     @Test
     public void orderProductsFromCartPageHappyPath() {
@@ -186,7 +75,6 @@ public class OrderingTests extends BaseTests {
                 fillCodeInStepOneForm(code).fillEmailInStepOneForm(email).fillTelInStepOneForm(tel).
                 isInvoiceNeededOptionSteoOneForm(invoice).fillNipInStepOneForm(nip).saveAndContinueOrderingPage();
 
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
         nameAlertMessage = (String) jse.executeScript(
                 "const name = document.querySelector(\"#shipping_details_name\");"
                         + "message = name.validationMessage; return message;");
@@ -400,7 +288,6 @@ public class OrderingTests extends BaseTests {
                 fillEmailInStepOneForm(email).fillTelInStepOneForm(tel).isInvoiceNeededOptionSteoOneForm(invoice).
                 fillNipInStepOneForm(nip).saveAndContinueOrderingPage().finalizeAndConfirmOrder();
 
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
         termsAlertMessage = (String) jse.executeScript(
                 "const terms = document.querySelector(\"#terms\");"
                         + "message = terms.validationMessage; return message;");
