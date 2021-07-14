@@ -9,9 +9,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
 
-    protected WebDriver driver;
-    protected WebDriverWait wait;
-    protected WebElement acceptCookie;
+    public WebDriver driver;
+    public WebDriverWait wait;
+    public WebElement acceptCookie;
 
     protected By acceptCookieSelector = new By.ByCssSelector("div#gdpr-warning > button.accept-cookie");
     private final By numberOfProductsDisplaySelector = new By.ByCssSelector("span.cart-number");
