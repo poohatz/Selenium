@@ -1,5 +1,7 @@
 package PageObjects;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +14,8 @@ public abstract class BasePage {
     public WebDriver driver;
     public WebDriverWait wait;
     public WebElement acceptCookie;
+    public Logger logger = (Logger) LogManager.getRootLogger();
+
 
     protected By acceptCookieSelector = new By.ByCssSelector("div#gdpr-warning > button.accept-cookie");
     private final By numberOfProductsDisplaySelector = new By.ByCssSelector("span.cart-number");

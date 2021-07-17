@@ -31,6 +31,7 @@ public class CartTests extends BaseTests{
         String symbol2 = "PL47";
 
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
+        mainCategoryPage.logger.info("sadasdasd");
         String productSymbolInCart1 = mainCategoryPage.viewCategoryByName(category1).viewProductBySymbol(symbol1).addToCart().getProductSymbolInCart(0);
         String productSymbolInCart2 = mainCategoryPage.viewCategoryByName(category2).viewProductBySymbol(symbol2).addToCart().getProductSymbolInCart(1);
 
