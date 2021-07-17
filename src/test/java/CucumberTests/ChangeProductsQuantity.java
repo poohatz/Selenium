@@ -17,9 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ChangeProductsQuantity extends BaseTests {
 
-    private MainCategoryPage mainCategoryPage;
     private CategoryPage categoryPage;
-    private ProductPage productPage;
     private CartPage cartPage;
     String quantityActual;
     Float totalAmountActual;
@@ -29,14 +27,18 @@ public class ChangeProductsQuantity extends BaseTests {
     public void userIsInCartPageWithOneProductFrom(String symbol, String category) {
 
         this.testSetUp();
-        mainCategoryPage = new MainCategoryPage(driver);
-        cartPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol);
+
+        cartPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol);
     }
 
     @When("User changes quantity to {int}")
     public void userChangesQuantityTo(int quantity) {
 
-        quantityActual = cartPage.changeProductQuantity(0, Integer.toString(quantity)).getProductQuantity(0);
+        quantityActual = cartPage
+                .changeProductQuantity(0, Integer.toString(quantity))
+                .getProductQuantity(0);
     }
 
     @Then("Quantity of {int} is displaying")
@@ -48,9 +50,15 @@ public class ChangeProductsQuantity extends BaseTests {
     @When("User changes quantity to {int} and checks PayU option, Standard option and click Calculate and Save Button")
     public void userChangesQuantityToAndChecksPayUOptionStandardOptionAndClickCalculateAndSaveButton(int quantity) {
 
-        CartPage cartPage = this.cartPage.changeProductQuantity(0, Integer.toString(quantity));
+        CartPage cartPage = this.cartPage
+                .changeProductQuantity(0, Integer.toString(quantity));
+
         cartPage.acceptCookie();
-        cartPage = cartPage.setDeliveryType(0).setRealizationType(0).calculateTotalAmount();
+
+        cartPage = cartPage
+                .setDeliveryType(0)
+                .setRealizationType(0)
+                .calculateTotalAmount();
     }
 
     @And("User clicks Add to Cart near Product {string}")

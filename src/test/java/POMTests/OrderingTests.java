@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OrderingTests extends BaseTests {
 
-
+    @org.testng.annotations.Test
     @Test
     public void orderProductsFromCartPageHappyPath() {
 
@@ -22,14 +22,19 @@ public class OrderingTests extends BaseTests {
         String heading = "Krok 1 z 2: Podaj dane do wysyłki";
         String headingStepOneOrderingPage = "";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        headingStepOneOrderingPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol).
-                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().getHeadingOrderingPage();
+        headingStepOneOrderingPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol)
+                .setRealizationType(realizationType)
+                .setDeliveryType(deliveryType)
+                .saveAndOrderProductsFromCart()
+                .getHeadingOrderingPage();
 
         assertEquals(heading, headingStepOneOrderingPage, "Naglowek w pierwszym kroku zamowienia nie zgadza sie");
 
     }
 
+    @org.testng.annotations.Test
     @Test
     public void fillingAddressFormStepOneOrderingPageTestNegativeWays() {
 
@@ -70,10 +75,20 @@ public class OrderingTests extends BaseTests {
         MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         mainCategoryPage.acceptCookie();
 
-        OrderingPage orderingPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol).
-                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().fillAddressInStepOneForm(address).fillCityInStepOneForm(city).
-                fillCodeInStepOneForm(code).fillEmailInStepOneForm(email).fillTelInStepOneForm(tel).
-                isInvoiceNeededOptionSteoOneForm(invoice).fillNipInStepOneForm(nip).saveAndContinueOrderingPage();
+        OrderingPage orderingPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol)
+                .setRealizationType(realizationType)
+                .setDeliveryType(deliveryType)
+                .saveAndOrderProductsFromCart()
+                .fillAddressInStepOneForm(address)
+                .fillCityInStepOneForm(city)
+                .fillCodeInStepOneForm(code)
+                .fillEmailInStepOneForm(email)
+                .fillTelInStepOneForm(tel)
+                .isInvoiceNeededOptionSteoOneForm(invoice)
+                .fillNipInStepOneForm(nip)
+                .saveAndContinueOrderingPage();
 
         nameAlertMessage = (String) jse.executeScript(
                 "const name = document.querySelector(\"#shipping_details_name\");"
@@ -84,7 +99,10 @@ public class OrderingTests extends BaseTests {
 
         //case 2 :: field address is empty
 
-        orderingPage = orderingPage.clearAddressInStepOneForm().fillNameInStepOneForm(name).saveAndContinueOrderingPage();
+        orderingPage = orderingPage
+                .clearAddressInStepOneForm()
+                .fillNameInStepOneForm(name)
+                .saveAndContinueOrderingPage();
 
         addressAlertMessage = (String) jse.executeScript(
                 "const address = document.querySelector(\"#shipping_details_street\");"
@@ -95,7 +113,10 @@ public class OrderingTests extends BaseTests {
 
         //case 3 :: field code is empty
 
-        orderingPage = orderingPage.clearCodeInStepOneForm().fillAddressInStepOneForm(address).saveAndContinueOrderingPage();
+        orderingPage = orderingPage
+                .clearCodeInStepOneForm()
+                .fillAddressInStepOneForm(address)
+                .saveAndContinueOrderingPage();
 
         codeAlertMessage = (String) jse.executeScript(
                 "const code = document.querySelector(\"#shipping_details_postalCode\");"
@@ -106,7 +127,10 @@ public class OrderingTests extends BaseTests {
 
         //case 4 :: field email is empty
 
-        orderingPage = orderingPage.clearEmailInStepOneForm().fillCodeInStepOneForm(code).saveAndContinueOrderingPage();
+        orderingPage = orderingPage
+                .clearEmailInStepOneForm()
+                .fillCodeInStepOneForm(code)
+                .saveAndContinueOrderingPage();
 
         emailAlertMessage = (String) jse.executeScript(
                 "const email = document.querySelector(\"#shipping_details_email\");"
@@ -117,7 +141,10 @@ public class OrderingTests extends BaseTests {
 
         //case 5 :: field tel is empty
 
-        orderingPage = orderingPage.clearTelInStepOneForm().fillEmailInStepOneForm(email).saveAndContinueOrderingPage();
+        orderingPage = orderingPage
+                .clearTelInStepOneForm()
+                .fillEmailInStepOneForm(email)
+                .saveAndContinueOrderingPage();
 
         telAlertMessage = (String) jse.executeScript(
                 "const tel = document.querySelector(\"#shipping_details_phone\");"
@@ -128,41 +155,49 @@ public class OrderingTests extends BaseTests {
 
         //case 6 :: field email has not got '@'
 
-        orderingPage = orderingPage.clearEmailInStepOneForm().fillTelInStepOneForm(tel).fillEmailInStepOneForm(email2).saveAndContinueOrderingPage();
+        orderingPage = orderingPage
+                .clearEmailInStepOneForm()
+                .fillTelInStepOneForm(tel)
+                .fillEmailInStepOneForm(email2)
+                .saveAndContinueOrderingPage();
 
         emailAlertMessage = (String) jse.executeScript(
                 "const email = document.querySelector(\"#shipping_details_email\");"
                         + "message = email.validationMessage; return message;");
-        System.out.println(emailAlertMessage);
 
         assertEquals(message2, emailAlertMessage, "Komunikat jest bledny");
 
 
         //case 7 :: field email has got nothing before '@'
 
-        orderingPage = orderingPage.clearEmailInStepOneForm().fillEmailInStepOneForm(email3).saveAndContinueOrderingPage();
+        orderingPage = orderingPage
+                .clearEmailInStepOneForm()
+                .fillEmailInStepOneForm(email3)
+                .saveAndContinueOrderingPage();
 
         emailAlertMessage = (String) jse.executeScript(
                 "const email = document.querySelector(\"#shipping_details_email\");"
                         + "message = email.validationMessage; return message;");
-        System.out.println(emailAlertMessage);
 
         assertEquals(message3, emailAlertMessage, "Komunikat jest bledny");
 
 
         //case 8 :: field email has got wrong sings
 
-        orderingPage = orderingPage.clearEmailInStepOneForm().fillEmailInStepOneForm(email4).saveAndContinueOrderingPage();
+        orderingPage = orderingPage
+                .clearEmailInStepOneForm()
+                .fillEmailInStepOneForm(email4)
+                .saveAndContinueOrderingPage();
 
         emailAlertMessage = (String) jse.executeScript(
                 "const email = document.querySelector(\"#shipping_details_email\");"
                         + "message = email.validationMessage; return message;");
-        System.out.println(emailAlertMessage);
 
         assertEquals(message4, emailAlertMessage, "Komunikat jest bledny");
 
     }
 
+    @org.testng.annotations.Test
     @Test
     public void fillingAddressFormStepOneOrderingPageTestPositiveWays() {
 
@@ -185,14 +220,24 @@ public class OrderingTests extends BaseTests {
 
         //case 1 :: all fields filled in
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         OrderingPage orderingPage = new OrderingPage(driver);
-        mainCategoryPage.acceptCookie();
 
-        headingStepTwoOrderingPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol).
-                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().fillNameInStepOneForm(name).fillAddressInStepOneForm(address).fillCityInStepOneForm(city).
-                fillCodeInStepOneForm(code).fillEmailInStepOneForm(email).fillTelInStepOneForm(tel).
-                isInvoiceNeededOptionSteoOneForm(invoice).fillNipInStepOneForm(nip).saveAndContinueOrderingPage().getHeadingOrderingPage();
+        headingStepTwoOrderingPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol)
+                .setRealizationType(realizationType)
+                .setDeliveryType(deliveryType)
+                .saveAndOrderProductsFromCart()
+                .fillNameInStepOneForm(name)
+                .fillAddressInStepOneForm(address)
+                .fillCityInStepOneForm(city)
+                .fillCodeInStepOneForm(code)
+                .fillEmailInStepOneForm(email)
+                .fillTelInStepOneForm(tel)
+                .isInvoiceNeededOptionSteoOneForm(invoice)
+                .fillNipInStepOneForm(nip)
+                .saveAndContinueOrderingPage()
+                .getHeadingOrderingPage();
 
         assertEquals(heading, headingStepTwoOrderingPage, "Naglowek w drugim kroku zamowienia nie zgadza sie");
 
@@ -210,19 +255,30 @@ public class OrderingTests extends BaseTests {
 
         //case 3 :: only field nip is empty
 
-        headingStepTwoOrderingPage = orderingPage.returnToStepOneOrderingPage().clearNipInStepOneForm().saveAndContinueOrderingPage().getHeadingOrderingPage();
+        headingStepTwoOrderingPage = orderingPage
+                .returnToStepOneOrderingPage()
+                .clearNipInStepOneForm()
+                .saveAndContinueOrderingPage()
+                .getHeadingOrderingPage();
 
         assertEquals(heading, headingStepTwoOrderingPage, "Naglowek w drugim kroku zamowienia nie zgadza sie");
 
 
         //case 4 :: only field comments is empty
 
-        headingStepTwoOrderingPage = orderingPage.returnToStepOneOrderingPage().clearCommentsInStepOneForm().isInvoiceNeededOptionSteoOneForm(true).fillNipInStepOneForm(nip).saveAndContinueOrderingPage().getHeadingOrderingPage();
+        headingStepTwoOrderingPage = orderingPage
+                .returnToStepOneOrderingPage()
+                .clearCommentsInStepOneForm()
+                .isInvoiceNeededOptionSteoOneForm(true)
+                .fillNipInStepOneForm(nip)
+                .saveAndContinueOrderingPage()
+                .getHeadingOrderingPage();
 
         assertEquals(heading, headingStepTwoOrderingPage, "Naglowek w drugim kroku zamowienia nie zgadza sie");
 
     }
 
+    @org.testng.annotations.Test
     @Test
     public void finalizeOrderAndPayLaterInOrderingPagePositiveWay(){
 
@@ -243,19 +299,31 @@ public class OrderingTests extends BaseTests {
         String heading = "Dziękujemy za złożenie zamówienia w naszej firmie!";
         String finalOrderConfirmationHeading = "";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-
-        finalOrderConfirmationHeading = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol).
-                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().fillNameInStepOneForm(name).
-                fillAddressInStepOneForm(address).fillCityInStepOneForm(city).
-                fillCodeInStepOneForm(code).fillEmailInStepOneForm(email).fillTelInStepOneForm(tel).
-                isInvoiceNeededOptionSteoOneForm(invoice).fillNipInStepOneForm(nip).saveAndContinueOrderingPage().
-                checkRodoConfirmation().checkTermsConfirmation().finalizeAndConfirmOrder().getFinalHeadingOrderingPage();
+        finalOrderConfirmationHeading = mainCategoryPage
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol)
+                .setRealizationType(realizationType)
+                .setDeliveryType(deliveryType)
+                .saveAndOrderProductsFromCart()
+                .fillNameInStepOneForm(name)
+                .fillAddressInStepOneForm(address)
+                .fillCityInStepOneForm(city)
+                .fillCodeInStepOneForm(code)
+                .fillEmailInStepOneForm(email)
+                .fillTelInStepOneForm(tel)
+                .isInvoiceNeededOptionSteoOneForm(invoice)
+                .fillNipInStepOneForm(nip)
+                .saveAndContinueOrderingPage()
+                .checkRodoConfirmation()
+                .checkTermsConfirmation()
+                .finalizeAndConfirmOrder()
+                .getFinalHeadingOrderingPage();
 
         assertEquals(heading, finalOrderConfirmationHeading, "Końcowe potwierdzenie zamówienia wyświetla się niepoprawnie");
 
     }
 
+    @org.testng.annotations.Test
     @Test
     public void finalizeOrderAndPayLaterInOrderingPageNegativeWays(){
 
@@ -277,16 +345,25 @@ public class OrderingTests extends BaseTests {
         String termsAlertMessage = "";
         String rodoAlertMessage = "";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-
 
         //case 1 :: Finalizing without accepting terms and rodo
 
-        OrderingPage orderingPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol).
-                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().fillNameInStepOneForm(name).
-                fillAddressInStepOneForm(address).fillCityInStepOneForm(city).fillCodeInStepOneForm(code).
-                fillEmailInStepOneForm(email).fillTelInStepOneForm(tel).isInvoiceNeededOptionSteoOneForm(invoice).
-                fillNipInStepOneForm(nip).saveAndContinueOrderingPage().finalizeAndConfirmOrder();
+        OrderingPage orderingPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol)
+                .setRealizationType(realizationType)
+                .setDeliveryType(deliveryType)
+                .saveAndOrderProductsFromCart()
+                .fillNameInStepOneForm(name)
+                .fillAddressInStepOneForm(address)
+                .fillCityInStepOneForm(city)
+                .fillCodeInStepOneForm(code)
+                .fillEmailInStepOneForm(email)
+                .fillTelInStepOneForm(tel)
+                .isInvoiceNeededOptionSteoOneForm(invoice)
+                .fillNipInStepOneForm(nip)
+                .saveAndContinueOrderingPage()
+                .finalizeAndConfirmOrder();
 
         termsAlertMessage = (String) jse.executeScript(
                 "const terms = document.querySelector(\"#terms\");"
@@ -297,9 +374,16 @@ public class OrderingTests extends BaseTests {
 
         //case 2 :: Finalizing without accepting terms
 
-        orderingPage = orderingPage.viewMainPage().viewCategoryByName(category).addToCartByCategoryPage(symbol).
-                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().
-                saveAndContinueOrderingPage().checkRodoConfirmation().finalizeAndConfirmOrder();
+        orderingPage = orderingPage
+                .viewMainPage()
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol)
+                .setRealizationType(realizationType)
+                .setDeliveryType(deliveryType)
+                .saveAndOrderProductsFromCart()
+                .saveAndContinueOrderingPage()
+                .checkRodoConfirmation()
+                .finalizeAndConfirmOrder();
 
         termsAlertMessage = (String) jse.executeScript(
                 "const terms = document.querySelector(\"#terms\");"
@@ -310,9 +394,16 @@ public class OrderingTests extends BaseTests {
 
         //case 3 :: Finalizing without accepting rodo
 
-        orderingPage = orderingPage.viewMainPage().viewCategoryByName(category).addToCartByCategoryPage(symbol).
-                setRealizationType(realizationType).setDeliveryType(deliveryType).saveAndOrderProductsFromCart().
-                saveAndContinueOrderingPage().checkTermsConfirmation().finalizeAndConfirmOrder();
+        orderingPage = orderingPage
+                .viewMainPage()
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol)
+                .setRealizationType(realizationType)
+                .setDeliveryType(deliveryType)
+                .saveAndOrderProductsFromCart()
+                .saveAndContinueOrderingPage()
+                .checkTermsConfirmation()
+                .finalizeAndConfirmOrder();
 
         rodoAlertMessage = (String) jse.executeScript(
                 "const rodo = document.querySelector(\"#personal-data\");"

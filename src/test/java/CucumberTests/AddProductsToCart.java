@@ -17,16 +17,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AddProductsToCart extends BaseTests {
 
-    private MainCategoryPage mainCategoryPage;
     private CategoryPage categoryPage;
-    private ProductPage productPage;
     private CartPage cartPage;
 
     @Given("User is in Main Category Page")
     public void userIsInMainCategoryPage() {
 
         this.testSetUp();
-        mainCategoryPage = new MainCategoryPage(driver);
         mainCategoryPage.viewMainPage();
     }
 
@@ -39,7 +36,9 @@ public class AddProductsToCart extends BaseTests {
     @And("User goes to Product Page {string} and clicks Add to Cart")
     public void userGoesToProductPageAndClicksAddToCart(String symbol) {
 
-        cartPage = categoryPage.viewProductBySymbol(symbol).addToCart();
+        cartPage = categoryPage
+                .viewProductBySymbol(symbol)
+                .addToCart();
     }
 
     @Then("Cart Page with Product {string} is displayed")

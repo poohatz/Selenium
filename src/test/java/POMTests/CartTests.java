@@ -3,25 +3,33 @@ package POMTests;
 import PageObjects.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartTests extends BaseTests{
 
-
+    @org.testng.annotations.Test
     @Test
     public void addOneProductToCartByProductPageTest() {
 
         String category = categories[4];
         String symbol = "sa32";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        String productSymbolInCart = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).addToCart().getProductSymbolInCart(0);
+        String productSymbolInCart = mainCategoryPage
+                .viewCategoryByName(category)
+                .viewProductBySymbol(symbol)
+                .addToCart()
+                .getProductSymbolInCart(0);
 
         assertTrue(productSymbolInCart.equals(symbol), "Produkt nie dodaje sie do koszyka");
 
     }
 
+    @org.testng.annotations.Test
     @Test
     public void addSomeProductsToCartByProductPageTest() {
 
@@ -30,14 +38,23 @@ public class CartTests extends BaseTests{
         String category2 = categories[5];
         String symbol2 = "PL47";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        mainCategoryPage.logger.info("sadasdasd");
-        String productSymbolInCart1 = mainCategoryPage.viewCategoryByName(category1).viewProductBySymbol(symbol1).addToCart().getProductSymbolInCart(0);
-        String productSymbolInCart2 = mainCategoryPage.viewCategoryByName(category2).viewProductBySymbol(symbol2).addToCart().getProductSymbolInCart(1);
+        String productSymbolInCart1 = mainCategoryPage
+                .viewCategoryByName(category1)
+                .viewProductBySymbol(symbol1)
+                .addToCart()
+                .getProductSymbolInCart(0);
 
-        assertTrue(productSymbolInCart1.equals(symbol1) && productSymbolInCart2.equals(symbol2), "Ktorys z produktow nie dodaje sie do koszyka");
+        String productSymbolInCart2 = mainCategoryPage
+                .viewCategoryByName(category2)
+                .viewProductBySymbol(symbol2)
+                .addToCart()
+                .getProductSymbolInCart(1);
+
+        assertTrue(productSymbolInCart1.equals(symbol1) && productSymbolInCart2.equals(symbol2));
+
     }
 
+    @org.testng.annotations.Test
     @Test
     public void addTwiceSameProductToCartTest() {
 
@@ -48,10 +65,17 @@ public class CartTests extends BaseTests{
         String productQuantityInCartPage1;
         String productQuantityInCartPage2 = null;
 
+        mainCategoryPage.acceptCookie();
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        CartPage productSymbolInCart1 = mainCategoryPage.viewCategoryByName(category1).viewProductBySymbol(symbol1).addToCart();
-        CartPage productSymbolInCart2 = mainCategoryPage.viewCategoryByName(category2).viewProductBySymbol(symbol2).addToCart();
+        CartPage productSymbolInCart1 = mainCategoryPage
+                .viewCategoryByName(category1)
+                .viewProductBySymbol(symbol1)
+                .addToCart();
+
+        CartPage productSymbolInCart2 = mainCategoryPage
+                .viewCategoryByName(category2)
+                .viewProductBySymbol(symbol2)
+                .addToCart();
 
         productQuantityInCartPage1 = productSymbolInCart1.getProductQuantity(0);
 
@@ -65,6 +89,7 @@ public class CartTests extends BaseTests{
         assertEquals(productQuantityInCartPage1, "40", "Ilosc produktu nie zgadza sie");
     }
 
+    @org.testng.annotations.Test
     @Test
     public void addProductToCartFromCategoryPageTest() {
 
@@ -72,15 +97,21 @@ public class CartTests extends BaseTests{
         String symbol = "sa32";
         String productSymbolInCart;
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        CategoryPage categoryPage = mainCategoryPage.viewCategoryByName(category);
-        CartPage cartPage = categoryPage.addToCartByCategoryPage(symbol);
-        productSymbolInCart = cartPage.viewCartPage().getProductSymbolInCart(0);
+        CategoryPage categoryPage = mainCategoryPage
+                .viewCategoryByName(category);
+
+        CartPage cartPage = categoryPage
+                .addToCartByCategoryPage(symbol);
+
+        productSymbolInCart = cartPage
+                .viewCartPage()
+                .getProductSymbolInCart(0);
 
         assertTrue(productSymbolInCart.equals(symbol), "Nie udalo sie dodac produktu ze strony kategorii");
 
     }
 
+    @org.testng.annotations.Test
     @Test
     public void changeQuantityOfProductInCartPageTest() {
 
@@ -88,14 +119,19 @@ public class CartTests extends BaseTests{
         String symbol = "sa32";
         String quantity = "78";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        CartPage cartPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol);
-        String productQuantityInCartPage = cartPage.changeProductQuantity(0, "78").getProductQuantity(0);
+        CartPage cartPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol);
+
+        String productQuantityInCartPage = cartPage
+                .changeProductQuantity(0, "78")
+                .getProductQuantity(0);
 
         assertTrue(quantity.equals(productQuantityInCartPage));
 
     }
 
+    @org.testng.annotations.Test
     @Test
     public void calculateTotalAmountInCartPageTest() {
 
@@ -122,12 +158,27 @@ public class CartTests extends BaseTests{
         String totalAmountFinal = totalAmount.toString();
         if(totalAmountFinal.contains(".")) totalAmountFinal = totalAmountFinal.replace(".",",");
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        CartPage cartPage = mainCategoryPage.viewCategoryByName(category1).addToCartByCategoryPage(symbol1).changeProductQuantity(0, quantity1);
+        CartPage cartPage = mainCategoryPage
+                .viewCategoryByName(category1)
+                .addToCartByCategoryPage(symbol1)
+                .changeProductQuantity(0, quantity1);
+
         cartPage.acceptCookie();
-        totalAmountInCartPage = cartPage.setDeliveryType(deliveryType).setRealizationType(realizationType).calculateTotalAmount().getTotalAmount();
-        totalAmountInCartPage = mainCategoryPage.viewCategoryByName(category2).viewProductBySymbol(symbol2).addToCart().
-                changeProductQuantity(1, quantity2).calculateTotalAmount().getTotalAmount().replace(" ","");
+
+        totalAmountInCartPage = cartPage
+                .setDeliveryType(deliveryType)
+                .setRealizationType(realizationType)
+                .calculateTotalAmount()
+                .getTotalAmount();
+
+        totalAmountInCartPage = mainCategoryPage
+                .viewCategoryByName(category2)
+                .viewProductBySymbol(symbol2)
+                .addToCart()
+                .changeProductQuantity(1, quantity2)
+                .calculateTotalAmount()
+                .getTotalAmount()
+                .replace(" ","");
 
         if(totalAmountInCartPage.endsWith("0")&&totalAmountInCartPage.contains(",")) totalAmountInCartPage = totalAmountInCartPage.substring(0,totalAmountInCartPage.lastIndexOf("0"));
 
@@ -135,6 +186,7 @@ public class CartTests extends BaseTests{
     }
 
 
+    @org.testng.annotations.Test
     @Test
     public void setIncorrectQuantityCartPageTest() {
 
@@ -146,16 +198,21 @@ public class CartTests extends BaseTests{
         String quantityAllertMessageCartTable = "";
 
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        CartPage cartPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).addToCart().
-                changeProductQuantity(0, quantity);
+        CartPage cartPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .viewProductBySymbol(symbol)
+                .addToCart()
+                .changeProductQuantity(0, quantity);
+
         cartPage.acceptCookie();
+
+        productQuantityInCart = cartPage
+                .calculateTotalAmount()
+                .getProductQuantity(0);
 
         quantityAllertMessageCartTable = (String)jse.executeScript(
                         "const quantity = document.querySelector(\"input#cart_items_0_quantity\");"
                          + "message = quantity.validationMessage; return message;");
-
-        productQuantityInCart = cartPage.calculateTotalAmount().getProductQuantity(0);
 
         assertTrue(quantityAllertMessageCartTable.equals(message), "Nie wyswietla sie poprawny alert przy za malej ilosci");
         assertTrue(productQuantityInCart.contains(quantity), "Strona przeladowuje sie przy za małej ilosci");
@@ -163,6 +220,7 @@ public class CartTests extends BaseTests{
     }
 
 
+    @org.testng.annotations.Test
     @Test
     public void deleteOneProductFromCartPageTest(){
 
@@ -170,11 +228,10 @@ public class CartTests extends BaseTests{
         String symbol = "sa32";
         String optionalSymbol = "";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        mainCategoryPage.acceptCookie();
-
-        CartPage cartPage = mainCategoryPage.viewCategoryByName(category).
-                            addToCartByCategoryPage(symbol).deleteFromCartPage(symbol);
+        CartPage cartPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol)
+                .deleteFromCartPage(symbol);
 
         try{
 
@@ -185,6 +242,7 @@ public class CartTests extends BaseTests{
         Assertions.assertFalse(optionalSymbol.equals(symbol), "Nie udalo sie usunac produktu " + symbol);
     }
 
+    @org.testng.annotations.Test
     @Test
     public void deleteSomeProductsFromCartPageTest(){
 
@@ -196,13 +254,16 @@ public class CartTests extends BaseTests{
         String symbol2= "PL47";
         String optionalSymbol2 = "";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        mainCategoryPage.acceptCookie();
 
-        CartPage cartPage = mainCategoryPage.viewCategoryByName(category1).
+        CartPage cartPage = mainCategoryPage
+                .viewCategoryByName(category1).
                 addToCartByCategoryPage(symbol1);
-        cartPage = mainCategoryPage.viewCategoryByName(category2).addToCartByCategoryPage(symbol2).
-                   deleteFromCartPage(symbol2).deleteFromCartPage(symbol1);
+
+        cartPage = mainCategoryPage
+                .viewCategoryByName(category2)
+                .addToCartByCategoryPage(symbol2)
+                .deleteFromCartPage(symbol2)
+                .deleteFromCartPage(symbol1);
 
         try{
 
@@ -215,6 +276,7 @@ public class CartTests extends BaseTests{
                 "Nie udalo sie usunac ktoregos z produktów " + symbol1 + " lub " + symbol2);
     }
 
+    @org.testng.annotations.Test
     @Test
     public void orderProductWithoutCheckingDeliveryAndRealizationTypeCartPage() {
 
@@ -223,9 +285,11 @@ public class CartTests extends BaseTests{
         String message = "Wybierz jedną z opcji.";
         String deliveryTypeMessageCartTable = "";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        OrderingPage orderingPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).
-                addToCart().saveAndOrderProductsFromCart();
+        OrderingPage orderingPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .viewProductBySymbol(symbol)
+                .addToCart()
+                .saveAndOrderProductsFromCart();
 
         deliveryTypeMessageCartTable = (String) jse.executeScript(
                 "const delivery = document.querySelector(\"#cart_deliveryType_4\");"
@@ -235,6 +299,7 @@ public class CartTests extends BaseTests{
 
     }
 
+    @org.testng.annotations.Test
     @Test
     public void orderProductWithoutCheckingRealizationTypeCartPage() {
 
@@ -245,9 +310,12 @@ public class CartTests extends BaseTests{
         String message = "Wybierz jedną z opcji.";
         String realizationTypeMessageCartTable = "";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        OrderingPage orderingPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).
-                addToCart().setDeliveryType(deliveryType).saveAndOrderProductsFromCart();
+        OrderingPage orderingPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .viewProductBySymbol(symbol)
+                .addToCart()
+                .setDeliveryType(deliveryType)
+                .saveAndOrderProductsFromCart();
 
         realizationTypeMessageCartTable = (String) jse.executeScript(
                 "const realization = document.querySelector(\"#cart_realizationType_2\");"
@@ -257,6 +325,7 @@ public class CartTests extends BaseTests{
 
     }
 
+    @org.testng.annotations.Test
     @Test
     public void orderProductWithoutCheckingDeliveryTypeCartPage() {
 
@@ -267,9 +336,12 @@ public class CartTests extends BaseTests{
         String message = "Wybierz jedną z opcji.";
         String deliveryTypeMessageCartTable = "";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        OrderingPage orderingPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol).
-                addToCart().setRealizationType(realizationType).saveAndOrderProductsFromCart();
+        OrderingPage orderingPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .viewProductBySymbol(symbol)
+                .addToCart()
+                .setRealizationType(realizationType)
+                .saveAndOrderProductsFromCart();
 
         deliveryTypeMessageCartTable = (String) jse.executeScript(
                 "const delivery = document.querySelector(\"#cart_deliveryType_4\");"

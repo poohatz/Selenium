@@ -13,9 +13,6 @@ import org.junit.jupiter.api.Assertions;
 
 public class DeleteProductsFromCart extends BaseTests {
 
-    private MainCategoryPage mainCategoryPage;
-    private CategoryPage categoryPage;
-    private ProductPage productPage;
     private CartPage cartPage;
     String optionalSymbol = "";
     String optionalSymbol2 = "";
@@ -24,10 +21,10 @@ public class DeleteProductsFromCart extends BaseTests {
     public void userIsInCart_pageWithOneProductFrom(String symbol, String category) {
 
         this.testSetUp();
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        mainCategoryPage.acceptCookie();
-        cartPage = mainCategoryPage.viewCategoryByName(category).
-                addToCartByCategoryPage(symbol);
+
+        cartPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol);
     }
 
     @When("User clicks Delete button near {string} Product")
@@ -55,12 +52,14 @@ public class DeleteProductsFromCart extends BaseTests {
     public void userIsInCart_pageWithTwoProductFromAndFrom(String symbol, String category, String symbol2, String category2) {
 
         this.testSetUp();
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        mainCategoryPage.acceptCookie();
 
-        cartPage = mainCategoryPage.viewCategoryByName(category).
-                addToCartByCategoryPage(symbol);
-        cartPage = mainCategoryPage.viewCategoryByName(category2).addToCartByCategoryPage(symbol2);
+        cartPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol);
+
+        cartPage = mainCategoryPage
+                .viewCategoryByName(category2)
+                .addToCartByCategoryPage(symbol2);
 
     }
 

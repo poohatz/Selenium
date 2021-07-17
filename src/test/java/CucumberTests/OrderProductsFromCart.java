@@ -17,9 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OrderProductsFromCart extends BaseTests {
 
-    private MainCategoryPage mainCategoryPage;
-    private CategoryPage categoryPage;
-    private ProductPage productPage;
     private CartPage cartPage;
     private OrderingPage orderingPage;
     private String email;
@@ -29,8 +26,10 @@ public class OrderProductsFromCart extends BaseTests {
     public void user_is_in_Cart_Page_with_One_Product_from(String symbol, String category) {
 
         this.testSetUp();
-        mainCategoryPage = new MainCategoryPage(driver);
-        cartPage = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol);
+
+        cartPage = mainCategoryPage
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol);
     }
 
 
@@ -38,7 +37,11 @@ public class OrderProductsFromCart extends BaseTests {
     @When("User changes quantity to {int}, checks cash on delivery option, standard mode option and clicks Save and Order button")
     public void userChangesQuantityToChecksCashOnDeliveryOptionStandardModeOptionAndClicksSaveAndOrderButton(int quantity) {
 
-        orderingPage = cartPage.changeProductQuantity(0,Integer.toString(quantity)).setDeliveryType(2).setRealizationType(0).saveAndOrderProductsFromCart();
+        orderingPage = cartPage
+                .changeProductQuantity(0,Integer.toString(quantity))
+                .setDeliveryType(2)
+                .setRealizationType(0)
+                .saveAndOrderProductsFromCart();
     }
 
 
@@ -55,10 +58,16 @@ public class OrderProductsFromCart extends BaseTests {
         String comments = data.get("comments");
         String nip = data.get("nip");
 
-        orderingPage = orderingPage.fillNameInStepOneForm(name).
-                fillAddressInStepOneForm(address).fillCityInStepOneForm(city).
-                fillCodeInStepOneForm(code).fillEmailInStepOneForm(email).fillTelInStepOneForm(tel).
-                isInvoiceNeededOptionSteoOneForm(true).fillNipInStepOneForm(nip).saveAndContinueOrderingPage();
+        orderingPage = orderingPage
+                .fillNameInStepOneForm(name)
+                .fillAddressInStepOneForm(address)
+                .fillCityInStepOneForm(city)
+                .fillCodeInStepOneForm(code)
+                .fillEmailInStepOneForm(email)
+                .fillTelInStepOneForm(tel)
+                .isInvoiceNeededOptionSteoOneForm(true)
+                .fillNipInStepOneForm(nip)
+                .saveAndContinueOrderingPage();
 
     }
 
@@ -66,7 +75,10 @@ public class OrderProductsFromCart extends BaseTests {
     @And("User checks Terms Confirmation option, RODO accept option and clicks Finalize and Confirm Order")
     public void userChecksTermsConfirmationOptionRODOAcceptOptionAndClicksFinalizeAndConfirmOrder() {
 
-        orderingPage = orderingPage.checkRodoConfirmation().checkTermsConfirmation().finalizeAndConfirmOrder();
+        orderingPage = orderingPage
+                .checkRodoConfirmation()
+                .checkTermsConfirmation()
+                .finalizeAndConfirmOrder();
     }
 
 
@@ -81,7 +93,10 @@ public class OrderProductsFromCart extends BaseTests {
     @When("User changes quantity to {int}, checks standard mode option and clicks Save and Order button")
     public void userChangesQuantityChecksStandardModeOptionAndClicksSaveAndOrderButton(int quantity) {
 
-        orderingPage = cartPage.changeProductQuantity(0,Integer.toString(quantity)).setRealizationType(0).saveAndOrderProductsFromCart();
+        orderingPage = cartPage
+                .changeProductQuantity(0,Integer.toString(quantity))
+                .setRealizationType(0)
+                .saveAndOrderProductsFromCart();
     }
 
     @Then("Alert informing User must choice Delivery Option")
@@ -109,10 +124,16 @@ public class OrderProductsFromCart extends BaseTests {
         String comments = data.get("comments");
         String nip = data.get("nip");
 
-        orderingPage = orderingPage.fillNameInStepOneForm(name).
-                fillAddressInStepOneForm(address).fillCityInStepOneForm(city).
-                fillCodeInStepOneForm(code).fillEmailInStepOneForm(email).fillTelInStepOneForm(tel).
-                isInvoiceNeededOptionSteoOneForm(true).fillNipInStepOneForm(nip).saveAndContinueOrderingPage();
+        orderingPage = orderingPage
+                .fillNameInStepOneForm(name)
+                .fillAddressInStepOneForm(address)
+                .fillCityInStepOneForm(city)
+                .fillCodeInStepOneForm(code)
+                .fillEmailInStepOneForm(email)
+                .fillTelInStepOneForm(tel)
+                .isInvoiceNeededOptionSteoOneForm(true)
+                .fillNipInStepOneForm(nip)
+                .saveAndContinueOrderingPage();
     }
 
     @Then("Alert informing User must enter correct email")

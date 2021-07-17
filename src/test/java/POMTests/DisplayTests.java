@@ -1,5 +1,6 @@
 package POMTests;
 
+import PageObjects.CartPage;
 import PageObjects.CategoryPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.ProductPage;
@@ -9,32 +10,44 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DisplayTests extends BaseTests{
 
-
+    @org.testng.annotations.Test
     @Test
     public void displayAndNavigateProductGalleryTest(){
 
         String category = categories[3];
         String symbol = "WG08";
 
-
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
         ProductPage productPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol);
         
-        String imageFirstFullProductGalleryFile = productPage.getImageFullProductGalleryFile();
-        int numberOfThumbnails = productPage.getImageThumbnailProductGalleryFilesList().size();
-        String imageFirstThumbnailProductGalleryFile = productPage.getImageThumbnailProductGalleryFilesList().get(0).getAttribute("src");
+        String imageFirstFullProductGalleryFile = productPage
+                .getImageFullProductGalleryFile();
+
+        int numberOfThumbnails = productPage
+                .getImageThumbnailProductGalleryFilesList()
+                .size();
+
+        String imageFirstThumbnailProductGalleryFile = productPage
+                .getImageThumbnailProductGalleryFilesList()
+                .get(0)
+                .getAttribute("src");
+
         assertTrue(imageFirstFullProductGalleryFile.equals(imageFirstThumbnailProductGalleryFile), "Pierwsze duze zdjecie nie wyswietla sie prawidlowo");
 
 
         for(int i=1;i<numberOfThumbnails;i++) {
 
-            String imageNextThumbnailProductGalleryFile = productPage.changeImageFullProductGalleryFile(i);
-            String imageNextFullProductGalleryFile = productPage.getImageFullProductGalleryFile();
+            String imageNextThumbnailProductGalleryFile = productPage
+                    .changeImageFullProductGalleryFile(i);
+
+            String imageNextFullProductGalleryFile = productPage
+                    .getImageFullProductGalleryFile();
+
             assertTrue(imageNextFullProductGalleryFile.equals(imageNextThumbnailProductGalleryFile), "Duze zdjecie po kliknieciu miniaturki " + i +" nie wyswietla sie prawidlowo");
 
         }
     }
 
+    @org.testng.annotations.Test
     @Test
     public void displayNumberOfProductsInCartWhileAddingOneTest(){
 
@@ -42,13 +55,16 @@ public class DisplayTests extends BaseTests{
         String symbol = "WG08";
         String number = "1";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        mainCategoryPage.acceptCookie();
-        String numberOfProductsDisplay = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol).viewMainPage().getNumberOfProductsDisplay();
+        String numberOfProductsDisplay = mainCategoryPage
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol)
+                .viewMainPage()
+                .getNumberOfProductsDisplay();
 
         assertEquals(numberOfProductsDisplay, number, "Cyfra przy koszyku dla 1 produktu nie zgadza sie");
     }
 
+    @org.testng.annotations.Test
     @Test
     public void displayNumberOfProductsInCartWhileDeletingOneTest(){
 
@@ -57,15 +73,19 @@ public class DisplayTests extends BaseTests{
         String number = "";
         String numberOfProductsDisplay = "";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        mainCategoryPage.acceptCookie();
-
-        numberOfProductsDisplay = mainCategoryPage.viewCategoryByName(category).addToCartByCategoryPage(symbol).viewMainPage().
-                                viewCartPage().deleteFromCartPage(symbol).viewMainPage().getNumberOfProductsDisplay();
+        numberOfProductsDisplay = mainCategoryPage
+                .viewCategoryByName(category)
+                .addToCartByCategoryPage(symbol)
+                .viewMainPage()
+                .viewCartPage()
+                .deleteFromCartPage(symbol)
+                .viewMainPage()
+                .getNumberOfProductsDisplay();
 
         assertEquals(numberOfProductsDisplay, number, "Cyfra przy koszyku dla 1 produktu nie zgadza sie");
     }
 
+    @org.testng.annotations.Test
     @Test
     public void displayNumberOfProductsInCartWhileAddingThreeTest(){
 
@@ -84,20 +104,33 @@ public class DisplayTests extends BaseTests{
         String number3 = "3";
         String numberOfProductsDisplay3 = "";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        mainCategoryPage.acceptCookie();
+        numberOfProductsDisplay1 = mainCategoryPage
+                .viewCategoryByName(category1)
+                .addToCartByCategoryPage(symbol1)
+                .viewMainPage()
+                .getNumberOfProductsDisplay();
 
-        numberOfProductsDisplay1 = mainCategoryPage.viewCategoryByName(category1).addToCartByCategoryPage(symbol1).viewMainPage().getNumberOfProductsDisplay();
         assertEquals(numberOfProductsDisplay1, number1, "Cyfra przy koszyku dla 1 produktu nie zgadza sie");
 
-        numberOfProductsDisplay2 = mainCategoryPage.viewCategoryByName(category2).addToCartByCategoryPage(symbol2).viewMainPage().getNumberOfProductsDisplay();
+        numberOfProductsDisplay2 = mainCategoryPage
+                .viewCategoryByName(category2)
+                .addToCartByCategoryPage(symbol2)
+                .viewMainPage()
+                .getNumberOfProductsDisplay();
+
         assertEquals(numberOfProductsDisplay2, number2, "Cyfra przy koszyku dla 2 produktow nie zgadza sie");
 
-        numberOfProductsDisplay3 = mainCategoryPage.viewCategoryByName(category3).addToCartByCategoryPage(symbol3).viewMainPage().getNumberOfProductsDisplay();
+        numberOfProductsDisplay3 = mainCategoryPage
+                .viewCategoryByName(category3)
+                .addToCartByCategoryPage(symbol3)
+                .viewMainPage()
+                .getNumberOfProductsDisplay();
+
         assertEquals(numberOfProductsDisplay3, number3, "Cyfra przy koszyku dla 3 produktow nie zgadza sie");
 
     }
 
+    @org.testng.annotations.Test
     @Test
     public void displayNumberOfProductsInCartWhileDeletingThreeTest(){
 
@@ -116,30 +149,49 @@ public class DisplayTests extends BaseTests{
         String number3 = "";
         String numberOfProductsDisplay3 = "";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        mainCategoryPage.acceptCookie();
 
-        mainCategoryPage.viewCategoryByName(category1).addToCartByCategoryPage(symbol1).viewMainPage().viewCategoryByName(category2).
-                addToCartByCategoryPage(symbol2).viewMainPage().viewCategoryByName(category3).addToCartByCategoryPage(symbol3);
+        CartPage cartPage = mainCategoryPage
+                .viewCategoryByName(category1)
+                .addToCartByCategoryPage(symbol1)
+                .viewMainPage()
+                .viewCategoryByName(category2).
+                addToCartByCategoryPage(symbol2)
+                .viewMainPage()
+                .viewCategoryByName(category3)
+                .addToCartByCategoryPage(symbol3);
 
-        numberOfProductsDisplay1 = mainCategoryPage.viewCartPage().deleteFromCartPage(symbol1).getNumberOfProductsDisplay();
+        numberOfProductsDisplay1 = mainCategoryPage
+                .viewCartPage()
+                .deleteFromCartPage(symbol1)
+                .getNumberOfProductsDisplay();
+
         assertEquals(numberOfProductsDisplay1, number1, "Cyfra przy koszyku po usunieciu 1 produktu nie zgadza sie");
 
-        numberOfProductsDisplay2 = mainCategoryPage.viewCartPage().deleteFromCartPage(symbol2).getNumberOfProductsDisplay();
+        numberOfProductsDisplay2 = mainCategoryPage
+                .viewCartPage()
+                .deleteFromCartPage(symbol2)
+                .getNumberOfProductsDisplay();
+
         assertEquals(numberOfProductsDisplay2, number2, "Cyfra przy koszyku po usunieciu 2 produktow nie zgadza sie");
 
-        numberOfProductsDisplay3 = mainCategoryPage.viewCartPage().deleteFromCartPage(symbol3).getNumberOfProductsDisplay();
+        numberOfProductsDisplay3 = mainCategoryPage
+                .viewCartPage()
+                .deleteFromCartPage(symbol3)
+                .getNumberOfProductsDisplay();
+
         assertEquals(numberOfProductsDisplay3, number3, "Cyfra przy koszyku po usunieciu 3 produktow nie zgadza sie");
 
     }
 
+    @org.testng.annotations.Test
     @Test
     public void displayCartWithoutContentMessageTest(){
 
         String message = "Brak produktów w koszyku.";
 
-        MainCategoryPage mainCategoryPage = new MainCategoryPage(driver);
-        String messageWhileCartEmpty = mainCategoryPage.viewCartPage().getMessageWhileCartEmpty();
+        String messageWhileCartEmpty = mainCategoryPage
+                .viewCartPage()
+                .getMessageWhileCartEmpty();
 
         assertEquals(message, messageWhileCartEmpty, "Komunikat w pustym koszyku nie zgadza się z oczekiwanym");
     }
