@@ -61,6 +61,7 @@ public class CartPage extends BasePage{
         productQuantityInCart = driver.findElement(inputQuantitySelector);
         productQuantityInCart.clear();
         productQuantityInCart.sendKeys(quantity);
+        logger.info("Changed quantity on " + quantity);
         return this;
 
     }
@@ -71,6 +72,8 @@ public class CartPage extends BasePage{
         wait = new WebDriverWait(driver,7);
         wait.until(ExpectedConditions.elementToBeClickable(calculateTotalAmountButton));
         calculateTotalAmountButton.click();
+        logger.info("Total amount changed changed");
+
         return this;
 
     }
@@ -78,6 +81,8 @@ public class CartPage extends BasePage{
     public String getTotalAmount(){
 
         WebElement totalAmountInCartPage = driver.findElement(totalAmountSelector);
+        logger.info("Total amount is " + totalAmountInCartPage);
+
         return totalAmountInCartPage.getText();
     }
 
@@ -86,6 +91,7 @@ public class CartPage extends BasePage{
 
         By inputQuantitySelector = new By.ByCssSelector("input#cart_items_" + index + "_quantity");
         productQuantityInCart = driver.findElement(inputQuantitySelector);
+        logger.info("Quantity is " + productQuantityInCart);
         return productQuantityInCart.getAttribute("value");
 
     }
@@ -97,6 +103,7 @@ public class CartPage extends BasePage{
         wait = new WebDriverWait(driver,5);
         wait.until(ExpectedConditions.elementToBeClickable(deliveryTypeOptionSelector));
         driver.findElements(deliveryTypeOptionSelector).get(i).click();
+        logger.info("Delivery type changed");
         return cartPage;
     }
 
@@ -107,6 +114,7 @@ public class CartPage extends BasePage{
         wait = new WebDriverWait(driver,5);
         wait.until(ExpectedConditions.elementToBeClickable(realizationTypeOptionSelector));
         driver.findElements(realizationTypeOptionSelector).get(i).click();
+        logger.info("Realization type changed");
         return cartPage;
     }
 
@@ -115,6 +123,7 @@ public class CartPage extends BasePage{
         By removeButtonCartPageSelector =
                 new By.ByXPath(".//a[contains(text(), '" + symbol + "')]/parent::h2/following-sibling::a");
         driver.findElement(removeButtonCartPageSelector).click();
+        logger.info(symbol + " deleted from cart");
         return this;
     }
 
@@ -123,6 +132,7 @@ public class CartPage extends BasePage{
         this.acceptCookie();
         OrderingPage orderingPage = new OrderingPage(driver);
         driver.findElement(saveAndOrderButtonSelector).click();
+        logger.info("Save and Order Button clicked");
         return orderingPage;
 
     }

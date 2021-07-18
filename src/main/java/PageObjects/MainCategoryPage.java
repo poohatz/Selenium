@@ -41,6 +41,7 @@ public class MainCategoryPage extends BasePage {
         CategoryPage categoryPage = new CategoryPage(driver);
         By categorySelector = new By.ByLinkText(categoryName);
         driver.findElement(categorySelector).click();
+        logger.info("Moved to category page " + categoryName);
         return categoryPage;
     }
 

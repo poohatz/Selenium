@@ -75,6 +75,7 @@ public class CategoryPage extends BasePage{
         wait.until(ExpectedConditions.elementToBeClickable(productSymbolSelector));
         ProductPage productPage = new ProductPage(driver, symbol);
         driver.findElement(productSymbolSelector).click();
+        logger.info("Moved into page of product " + symbol);
         return productPage;
     }
 
@@ -102,6 +103,7 @@ public class CategoryPage extends BasePage{
         driver.findElement(orderButtonCategoryPage).click();
         CartPage cartPage = new CartPage(driver);
         cartPage.viewCartPage();
+        logger.info(symbol + " was added to cart");
         return cartPage;
     }
 

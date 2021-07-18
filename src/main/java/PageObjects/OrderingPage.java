@@ -73,6 +73,7 @@ public class OrderingPage extends BasePage{
     public OrderingPage fillNameInStepOneForm(String name){
 
         driver.findElement(nameInputInStepOneFormOrderingPageSelector).sendKeys(name);
+        logger.info("Field name changed on " + name);
         return this;
     }
 
@@ -86,6 +87,7 @@ public class OrderingPage extends BasePage{
     public OrderingPage fillAddressInStepOneForm(String address){
 
         driver.findElement(addressInputInStepOneFormOrderingPageSelector).sendKeys(address);
+        logger.info("Field address changed on " + address);
         return this;
     }
 
@@ -98,6 +100,7 @@ public class OrderingPage extends BasePage{
     public OrderingPage fillCodeInStepOneForm(String code){
 
         driver.findElement(codeInputInStepOneFormOrderingPageSelector).sendKeys(code);
+        logger.info("Field code changed on " + code);
         return this;
     }
 
@@ -110,6 +113,7 @@ public class OrderingPage extends BasePage{
     public OrderingPage fillCityInStepOneForm(String city){
 
         driver.findElement(cityInputInStepOneFormOrderingPageSelector).sendKeys(city);
+        logger.info("Field city changed on " + city);
         return this;
     }
 
@@ -122,6 +126,7 @@ public class OrderingPage extends BasePage{
     public OrderingPage fillTelInStepOneForm(String tel){
 
         driver.findElement(telInputInStepOneFormOrderingPageSelector).sendKeys(tel);
+        logger.info("Field telephone changed on " + tel);
         return this;
     }
 
@@ -134,6 +139,7 @@ public class OrderingPage extends BasePage{
     public OrderingPage fillEmailInStepOneForm(String email){
 
         driver.findElement(emailInputInStepOneFormOrderingPageSelector).sendKeys(email);
+        logger.info("Field email changed on " + email);
         return this;
     }
 
@@ -146,6 +152,7 @@ public class OrderingPage extends BasePage{
     public OrderingPage fillCommentsInStepOneForm(String comments){
 
         driver.findElement(commentsInputInStepOneFormOrderingPageSelector).sendKeys(comments);
+        logger.info("Field comments changed on " + comments);
         return this;
     }
 
@@ -170,6 +177,7 @@ public class OrderingPage extends BasePage{
     public OrderingPage fillNipInStepOneForm(String nip){
 
         driver.findElement(nipInputInStepOneFormOrderingPageSelector).sendKeys(nip);
+        logger.info("Field NIP changed on " + nip);
         return this;
     }
 
@@ -183,6 +191,7 @@ public class OrderingPage extends BasePage{
     public OrderingPage saveAndContinueOrderingPage(){
 
         driver.findElement(continueButtonInStepOneFormOrderingPageSelector).click();
+        logger.info("Save and Continue button clicked");
         return this;
     }
 
@@ -204,6 +213,7 @@ public class OrderingPage extends BasePage{
     public OrderingPage returnToStepOneOrderingPage(){
 
         driver.findElement(returnToStepOneButtonOrderingPageSelector).click();
+        logger.info("Return to address form button clicked");
         return this;
 
     }
@@ -211,18 +221,21 @@ public class OrderingPage extends BasePage{
     public OrderingPage checkTermsConfirmation(){
 
         driver.findElement(termsConfirmationCheckboxOrderingPageSelector).click();
+        logger.info("Terms accepted");
         return this;
     }
 
     public OrderingPage checkRodoConfirmation(){
 
         driver.findElement(rodoConfirmationChceckboxOrderingPageSelector).click();
+        logger.info("Rodo accepted");
         return this;
     }
 
     public OrderingPage finalizeAndConfirmOrder(){
 
         driver.findElement(finalOrderButtonOrderingPageSelector).click();
+        logger.info("Finalize Order Button clicked");
         return this;
     }
 

@@ -90,6 +90,7 @@ public class ProductPage extends BasePage{
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonSelector));
         WebElement addToCartButton = driver.findElement(addToCartButtonSelector);
         addToCartButton.click();
+        logger.info("Product was added to cart");
         return new CartPage(driver);
     }
 
