@@ -81,7 +81,7 @@ public class BrowserFactory {
         RemoteWebDriver remoteWebDriver = null;
 
         try {
-            remoteWebDriver = new RemoteWebDriver(new URL("GRID_URL"), desiredCapabilities);
+            remoteWebDriver = new RemoteWebDriver(new URL(TestRunProperties.getGridUrl()), desiredCapabilities);
         }
         catch (MalformedURLException e) {
             e.printStackTrace();
