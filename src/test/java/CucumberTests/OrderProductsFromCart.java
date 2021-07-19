@@ -87,6 +87,8 @@ public class OrderProductsFromCart extends BaseTests {
 
         String confirmationOrderMessageActual = orderingPage.getFinalHeadingOrderingPage();
         assertEquals(confirmationOrderMessageActual, confirmationOrderMessage);
+        this.closeDriver();
+
     }
 
 
@@ -109,6 +111,8 @@ public class OrderProductsFromCart extends BaseTests {
         String alert = "Wybierz jedną z opcji.";
 
         assertEquals(deliveryTypeAlertActual, alert);
+        this.closeDriver();
+
     }
 
     @And("User enters data with invalid email to Address Form and clicks Continue")
@@ -146,6 +150,8 @@ public class OrderProductsFromCart extends BaseTests {
         String alert = "Uwzględnij znak „@” w adresie e-mail. W adresie „" + email + "” brakuje znaku „@”.";
 
         assertEquals(emailAlertActual, alert);
+        this.closeDriver();
+
 
     }
 

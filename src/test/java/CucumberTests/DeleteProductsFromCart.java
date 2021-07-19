@@ -45,6 +45,8 @@ public class DeleteProductsFromCart extends BaseTests {
         catch (IndexOutOfBoundsException e2) {}
 
         Assertions.assertFalse(optionalSymbol.equals(symbol));
+        this.closeDriver();
+
 
     }
 
@@ -74,5 +76,7 @@ public class DeleteProductsFromCart extends BaseTests {
         catch (IndexOutOfBoundsException e2) {}
 
         Assertions.assertFalse(optionalSymbol.equals(symbol)||optionalSymbol2.equals(symbol2));
+        this.closeDriver();
+
     }
 }

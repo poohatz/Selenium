@@ -11,6 +11,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -46,6 +47,7 @@ public class AddProductsToCart extends BaseTests {
 
         String actualSymbol = cartPage.getProductSymbolInCart(0);
         assertEquals(actualSymbol,symbol);
+        this.closeDriver();
     }
 
     @Then("Cart Page with Product {string} and Product {string} is displayed")
@@ -55,6 +57,8 @@ public class AddProductsToCart extends BaseTests {
         String actualSymbol2 = cartPage.getProductSymbolInCart(1);
 
         assertTrue(actualSymbol.equals(symbol) && actualSymbol2.equals(symbol2));
+        this.closeDriver();
     }
+
 
 }

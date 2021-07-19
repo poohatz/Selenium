@@ -10,13 +10,13 @@ public class BrowserFactory {
     public static WebDriver getBrowser(BrowserType browserType) {
         switch (browserType) {
             case CHROME:
-                System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver", LocalWebDriverProperties.getChromeWebDriverLocation());
                 return new ChromeDriver();
             case FIREFOX:
-                System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+                System.setProperty("webdriver.gecko.driver", LocalWebDriverProperties.getFirefoxWebDriverLocation());
                 return new FirefoxDriver();
             case IE:
-                System.setProperty("webdriver.ie.driver", "src/main/resources/IEDriverServer.exe");
+                System.setProperty("webdriver.ie.driver", LocalWebDriverProperties.getInternetExplorerWebDriverLocation());
                 return new InternetExplorerDriver();
             default:
                 throw new IllegalStateException("Unknown browser type! Please check your configuration");

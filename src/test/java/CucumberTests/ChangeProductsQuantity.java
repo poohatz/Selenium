@@ -45,6 +45,8 @@ public class ChangeProductsQuantity extends BaseTests {
     public void quantityOfIsDisplayingNear(int quantity) {
 
         assertEquals(quantity, Integer.parseInt(quantityActual));
+        this.closeDriver();
+
     }
 
     @When("User changes quantity to {int} and checks PayU option, Standard option and click Calculate and Save Button")
@@ -78,6 +80,8 @@ public class ChangeProductsQuantity extends BaseTests {
 
         totalAmountActual = Float.parseFloat(cartPage.getTotalAmount().replace(",","."));
         assertEquals(totalAmount,totalAmountActual);
+        this.closeDriver();
+
     }
 
     @And("User goes into Category Page {string}")
