@@ -5,17 +5,50 @@ import PageObjects.CategoryPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.ProductPage;
 import org.junit.jupiter.api.Test;
+import org.testng.annotations.Factory;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DisplayTests extends BaseTests{
 
-    @org.testng.annotations.Test
-    @Test
-    public void displayAndNavigateProductGalleryTest(){
+    private String category;
+    private String symbol;
+    private String category1;
+    private String symbol1;
+    private String category2;
+    private String symbol2;
+    private String category3;
+    private String symbol3;
 
-        String category = categories[3];
-        String symbol = "WG08";
+    public DisplayTests(String category, String symbol, String category1, String symbol1,
+                        String category2, String symbol2, String category3, String symbol3) {
+
+        this.category = category;
+        this.symbol = symbol;
+        this.category1 = category1;
+        this.symbol1 = symbol1;
+        this.category2 = category2;
+        this.symbol2 = symbol2;
+        this.category3 = category3;
+        this.symbol3 = symbol3;
+    }
+
+    @Factory
+    public static Object[] displayTestsDataFactoryMethod() {
+
+        DisplayTests firstDisplayTests = new DisplayTests("Mystic Moment", "mm04", "Mystic Moment",
+                "mm07", "Folk&Boho","FB01","Vintage&Nature","sa32" );
+        DisplayTests secondDisplayTests = new DisplayTests("Pastellove", "PL47", "Mystic Moment",
+                "FB02", "Folk&Boho","FB01","Vintage&Nature","FB01" );
+
+        return new Object[]{
+                firstDisplayTests,
+                secondDisplayTests};
+    }
+
+    @org.testng.annotations.Test
+    public void displayAndNavigateProductGalleryTest(){
 
         ProductPage productPage = mainCategoryPage.viewCategoryByName(category).viewProductBySymbol(symbol);
         
@@ -48,11 +81,8 @@ public class DisplayTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void displayNumberOfProductsInCartWhileAddingOneTest(){
 
-        String category = categories[3];
-        String symbol = "WG08";
         String number = "1";
 
         String numberOfProductsDisplay = mainCategoryPage
@@ -65,11 +95,8 @@ public class DisplayTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void displayNumberOfProductsInCartWhileDeletingOneTest(){
 
-        String category = categories[3];
-        String symbol = "WG08";
         String number = "";
         String numberOfProductsDisplay = "";
 
@@ -86,21 +113,14 @@ public class DisplayTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void displayNumberOfProductsInCartWhileAddingThreeTest(){
 
-        String category1 = categories[3];
-        String symbol1 = "WG08";
         String number1 = "1";
         String numberOfProductsDisplay1 = "";
 
-        String category2 = categories[4];
-        String symbol2 = "sa32";
         String number2 = "2";
         String numberOfProductsDisplay2 = "";
 
-        String category3 = categories[5];
-        String symbol3 = "PL47";
         String number3 = "3";
         String numberOfProductsDisplay3 = "";
 
@@ -131,21 +151,14 @@ public class DisplayTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void displayNumberOfProductsInCartWhileDeletingThreeTest(){
 
-        String category1 = categories[3];
-        String symbol1 = "WG08";
         String number1 = "2";
         String numberOfProductsDisplay1 = "";
 
-        String category2 = categories[4];
-        String symbol2 = "sa32";
         String number2 = "1";
         String numberOfProductsDisplay2 = "";
 
-        String category3 = categories[5];
-        String symbol3 = "PL47";
         String number3 = "";
         String numberOfProductsDisplay3 = "";
 
@@ -184,7 +197,6 @@ public class DisplayTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void displayCartWithoutContentMessageTest(){
 
         String message = "Brak produktów w koszyku.";

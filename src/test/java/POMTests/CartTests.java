@@ -6,18 +6,52 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Factory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartTests extends BaseTests{
 
-    @org.testng.annotations.Test
-    @Test
-    public void addOneProductToCartByProductPageTest() {
+    private String category;
+    private String symbol;
+    private String category1;
+    private String symbol1;
+    private String category2;
+    private String symbol2;
+    private  String quantity;
+    private  String quantity1;
+    private  String quantity2;
+    private String totalAmountNormal;
 
-        String category = categories[4];
-        String symbol = "sa32";
+    public CartTests(String category, String symbol, String category1, String symbol1, String category2,
+                     String symbol2, String quantity, String quantity1, String quantity2, String totalAmountNormal) {
+        this.category = category;
+        this.symbol = symbol;
+        this.category1 = category1;
+        this.symbol1 = symbol1;
+        this.category2 = category2;
+        this.symbol2 = symbol2;
+        this.quantity = quantity;
+        this.quantity1 = quantity1;
+        this.quantity2 = quantity2;
+        this.totalAmountNormal = totalAmountNormal;
+    }
+
+    @Factory
+    public static Object[] cartTestsDataFactoryMethod() {
+
+        CartTests firstCartTests = new CartTests("Mystic Moment", "mm04", "Pastellove", "PL47", "Vintage&Nature",
+                "sa32", "56", "121", "21", "433,30");
+        CartTests secondCartTests = new CartTests("Folk&Boho", "FB01", "Mystic Moment", "mm07", "Folk&Boho",
+                "FB02", "16", "345", "25", "11");
+        return new Object[]{
+                firstCartTests,
+                secondCartTests};
+    }
+
+    @org.testng.annotations.Test
+    public void addOneProductToCartByProductPageTest() {
 
         String productSymbolInCart = mainCategoryPage
                 .viewCategoryByName(category)
@@ -30,13 +64,7 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void addSomeProductsToCartByProductPageTest() {
-
-        String category1 = categories[4];
-        String symbol1 = "sa32";
-        String category2 = categories[5];
-        String symbol2 = "PL47";
 
         String productSymbolInCart1 = mainCategoryPage
                 .viewCategoryByName(category1)
@@ -55,13 +83,8 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void addTwiceSameProductToCartTest() {
 
-        String category1 = categories[4];
-        String symbol1 = "sa32";
-        String category2 = categories[4];
-        String symbol2 = "sa32";
         String productQuantityInCartPage1;
         String productQuantityInCartPage2 = null;
 
@@ -73,8 +96,8 @@ public class CartTests extends BaseTests{
                 .addToCart();
 
         CartPage productSymbolInCart2 = mainCategoryPage
-                .viewCategoryByName(category2)
-                .viewProductBySymbol(symbol2)
+                .viewCategoryByName(category1)
+                .viewProductBySymbol(symbol1)
                 .addToCart();
 
         productQuantityInCartPage1 = productSymbolInCart1.getProductQuantity(0);
@@ -90,11 +113,8 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void addProductToCartFromCategoryPageTest() {
 
-        String category = categories[4];
-        String symbol = "sa32";
         String productSymbolInCart;
 
         CategoryPage categoryPage = mainCategoryPage
@@ -112,19 +132,14 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void changeQuantityOfProductInCartPageTest() {
-
-        String category = categories[4];
-        String symbol = "sa32";
-        String quantity = "78";
 
         CartPage cartPage = mainCategoryPage
                 .viewCategoryByName(category)
                 .addToCartByCategoryPage(symbol);
 
         String productQuantityInCartPage = cartPage
-                .changeProductQuantity(0, "78")
+                .changeProductQuantity(0, quantity)
                 .getProductQuantity(0);
 
         assertTrue(quantity.equals(productQuantityInCartPage));
@@ -132,18 +147,8 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void calculateTotalAmountInCartPageTest() {
 
-        String category1 = categories[5];
-        String symbol1 = "PL43";
-        String quantity1 = "33";
-
-        String category2 = categories[5];
-        String symbol2 = "PL58";
-        String quantity2 = "20";
-
-        String totalAmountNormal = "152,40";
         String totalAmountInCartPage = "";
 
         int deliveryType = 1;
@@ -187,12 +192,8 @@ public class CartTests extends BaseTests{
 
 
     @org.testng.annotations.Test
-    @Test
     public void setIncorrectQuantityCartPageTest() {
 
-        String category = categories[4];
-        String symbol = "sa32";
-        String quantity = "15";
         String message = "Wartość nie może być mniejsza niż 20.";
         String productQuantityInCart = "";
         String quantityAllertMessageCartTable = "";
@@ -221,11 +222,8 @@ public class CartTests extends BaseTests{
 
 
     @org.testng.annotations.Test
-    @Test
     public void deleteOneProductFromCartPageTest(){
 
-        String category = categories[4];
-        String symbol = "sa32";
         String optionalSymbol = "";
 
         CartPage cartPage = mainCategoryPage
@@ -243,17 +241,10 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void deleteSomeProductsFromCartPageTest(){
 
-        String category1 = categories[4];
-        String symbol1 = "sa32";
         String optionalSymbol1 = "";
-
-        String category2 = categories[5];
-        String symbol2= "PL47";
         String optionalSymbol2 = "";
-
 
         CartPage cartPage = mainCategoryPage
                 .viewCategoryByName(category1).
@@ -277,11 +268,8 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void orderProductWithoutCheckingDeliveryAndRealizationTypeCartPage() {
 
-        String category = categories[4];
-        String symbol = "sa32";
         String message = "Wybierz jedną z opcji.";
         String deliveryTypeMessageCartTable = "";
 
@@ -300,11 +288,8 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void orderProductWithoutCheckingRealizationTypeCartPage() {
 
-        String category = categories[4];
-        String symbol = "sa32";
         int deliveryType = 0;
 
         String message = "Wybierz jedną z opcji.";
@@ -326,11 +311,8 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
-    @Test
     public void orderProductWithoutCheckingDeliveryTypeCartPage() {
 
-        String category = categories[4];
-        String symbol = "sa32";
         int realizationType = 1;
 
         String message = "Wybierz jedną z opcji.";
