@@ -4,18 +4,62 @@ import PageObjects.CartPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.OrderingPage;
 import org.junit.jupiter.api.Test;
+import org.testng.annotations.Factory;
+
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OrderingTests extends BaseTests {
 
+    private String name;
+    private String address;
+    private String city;
+    private String code;
+    private String email;
+    private String email2;
+    private String email3;
+    private String email4;
+    private String tel;
+    private String comments;
+    private Boolean invoice;
+    private String nip;
+    private String category;
+    private String symbol;
+
+    public OrderingTests(String name, String address, String city, String code, String email, String email2, String email3,
+                         String email4, String tel, String comments, Boolean invoice, String nip, String category, String symbol) {
+
+        this.name = name;
+        this.address = address;
+        this.city = city;
+        this.code = code;
+        this.email = email;
+        this.email2 = email2;
+        this.email3 = email3;
+        this.email4 = email4;
+        this.tel = tel;
+        this.comments = comments;
+        this.invoice = invoice;
+        this.nip = nip;
+        this.category = category;
+        this.symbol = symbol;
+    }
+
+    @Factory
+    public static Object[] orderingTestsDataFactoryMethod() {
+
+        OrderingTests firstOrderingTests = new OrderingTests("Anna", "Lejka 3", "Sopot", "11-123",
+                "anna@wp.pl", "annawp.pl","@wop.pl",";@asdasd","123123213","",true,
+                "12309812398","Vintage&Nature","sa32");
+
+        return new Object[]{
+                firstOrderingTests};
+    }
+
     @org.testng.annotations.Test
-    @Test
     public void orderProductsFromCartPageHappyPath() {
 
-        String category = categories[4];
-        String symbol = "sa32";
         int deliveryType = 0;
         int realizationType = 1;
 
@@ -35,26 +79,11 @@ public class OrderingTests extends BaseTests {
     }
 
     @org.testng.annotations.Test
-    @Test
     public void fillingAddressFormStepOneOrderingPageTestNegativeWays() {
 
-        String name = "Maria Biedronka";
-        String address = "Kowalewskiego 3/4";
-        String city = "Sopot";
-        String code = "83-123";
-        String email = "maria1@o2.pl";
-        String email2 = "maria1o2.pl";
-        String email3 = "@maria1o2.pl";
-        String email4 = "maria&;#@o2.pl";
-        String tel = "600123098";
-        String comments = "Prosze o formularz";
-        Boolean invoice = true;
-        String nip = "7333300440";
         int deliveryType = 0;
         int realizationType = 1;
 
-        String category = categories[4];
-        String symbol = "sa32";
         String message1 = "Wypełnij to pole.";
         String message2 = "Uwzględnij znak „@” w adresie e-mail. W adresie „" + email2 + "” brakuje znaku „@”.";
         String message3 = "Podaj część przed znakiem „@”. Adres „" + email3 + "” jest niepełny.";
@@ -198,23 +227,11 @@ public class OrderingTests extends BaseTests {
     }
 
     @org.testng.annotations.Test
-    @Test
     public void fillingAddressFormStepOneOrderingPageTestPositiveWays() {
 
-        String name = "Maria Biedronka";
-        String address = "Kowalewskiego 3/4";
-        String city = "Sopot";
-        String code = "83-123";
-        String email = "maria1@o2.pl";
-        String tel = "600123098";
-        String comments = "Prosze o formularz";
-        Boolean invoice = true;
-        String nip = "7333300440";
         int deliveryType = 0;
         int realizationType = 1;
 
-        String category = categories[4];
-        String symbol = "sa32";
         String heading = "Krok 2 z 2: Sprawdź swoje zamówienie";
         String headingStepTwoOrderingPage = "";
 
@@ -279,23 +296,11 @@ public class OrderingTests extends BaseTests {
     }
 
     @org.testng.annotations.Test
-    @Test
     public void finalizeOrderAndPayLaterInOrderingPagePositiveWay(){
 
-        String name = "Maria Biedronka";
-        String address = "Kowalewskiego 3/4";
-        String city = "Sopot";
-        String code = "83-123";
-        String email = "maria1@o2.pl";
-        String tel = "600123098";
-        String comments = "Prosze o formularz";
-        Boolean invoice = true;
-        String nip = "7333300440";
         int deliveryType = 1 ;
         int realizationType = 1;
 
-        String category = categories[4];
-        String symbol = "sa32";
         String heading = "Dziękujemy za złożenie zamówienia w naszej firmie!";
         String finalOrderConfirmationHeading = "";
 
@@ -324,23 +329,11 @@ public class OrderingTests extends BaseTests {
     }
 
     @org.testng.annotations.Test
-    @Test
     public void finalizeOrderAndPayLaterInOrderingPageNegativeWays(){
 
-        String name = "Maria Biedronka";
-        String address = "Kowalewskiego 3/4";
-        String city = "Sopot";
-        String code = "83-123";
-        String email = "maria1@o2.pl";
-        String tel = "600123098";
-        String comments = "Prosze o formularz";
-        Boolean invoice = true;
-        String nip = "7333300440";
         int deliveryType = 1 ;
         int realizationType = 1;
 
-        String category = categories[4];
-        String symbol = "sa32";
         String message1 = "Zaznacz to pole, jeśli chcesz kontynuować.";
         String termsAlertMessage = "";
         String rodoAlertMessage = "";
