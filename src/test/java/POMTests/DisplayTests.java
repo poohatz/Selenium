@@ -39,6 +39,7 @@ public class DisplayTests extends BaseTests{
 
         DisplayTests firstDisplayTests = new DisplayTests("Mystic Moment", "mm04", "Mystic Moment",
                 "mm07", "Folk&Boho","FB01","Vintage&Nature","sa32" );
+
         DisplayTests secondDisplayTests = new DisplayTests("Pastellove", "PL47", "Mystic Moment",
                 "FB02", "Folk&Boho","FB01","Vintage&Nature","FB01" );
 

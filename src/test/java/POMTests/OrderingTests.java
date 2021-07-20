@@ -5,7 +5,6 @@ import PageObjects.MainCategoryPage;
 import PageObjects.OrderingPage;
 import org.junit.jupiter.api.Test;
 import org.testng.annotations.Factory;
-
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -49,12 +48,17 @@ public class OrderingTests extends BaseTests {
     @Factory
     public static Object[] orderingTestsDataFactoryMethod() {
 
-        OrderingTests firstOrderingTests = new OrderingTests("Anna", "Lejka 3", "Sopot", "11-123",
+        OrderingTests firstOrderingTests = new OrderingTests("Anna Kowal", "Lejka 3", "Sopot", "11-123",
                 "anna@wp.pl", "annawp.pl","@wop.pl",";@asdasd","123123213","",true,
                 "12309812398","Vintage&Nature","sa32");
 
+        OrderingTests secondOrderingTests = new OrderingTests("Marek Kaczka", "Komorowska 12/3", "Bydgoszcz", "11-823",
+                "marko@op.pl", "markowp.pl","@wmarko.pl",";@asdasd","600345313","mjbjbmbmhbm",true,
+                "12376464368","Folk&Boho","FB03");
+
         return new Object[]{
-                firstOrderingTests};
+                firstOrderingTests,
+                secondOrderingTests};
     }
 
     @org.testng.annotations.Test

@@ -26,8 +26,6 @@ public class BaseTests {
     protected final String[] categories = {"Nowości","Mystic Moment", "Folk&Boho", "Wild Garden", "Vintage&Nature", "Pastellove",
             "Royal Style", "Simple Beauty", "Classic Elegance", "Colors of Love", "Passion&Fun"};
 
-
-    @BeforeEach
     @BeforeMethod
     public void testSetUp(){
 
@@ -49,8 +47,7 @@ public class BaseTests {
 
 
     }
-
-    @AfterEach
+    
     @AfterMethod
     public void closeDriver() {
 

@@ -24,10 +24,13 @@ public class DriverManager {
     }
 
     public static void disposeDriver() {
+
         driver.close();
+
         if (!getBrowserToRun().equals(FIREFOX)) {
             driver.quit();
         }
+
         driver = null;
     }
 }

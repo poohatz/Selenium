@@ -26,6 +26,7 @@ public class CartTests extends BaseTests{
 
     public CartTests(String category, String symbol, String category1, String symbol1, String category2,
                      String symbol2, String quantity, String quantity1, String quantity2, String totalAmountNormal) {
+
         this.category = category;
         this.symbol = symbol;
         this.category1 = category1;
@@ -43,8 +44,10 @@ public class CartTests extends BaseTests{
 
         CartTests firstCartTests = new CartTests("Mystic Moment", "mm04", "Pastellove", "PL47", "Vintage&Nature",
                 "sa32", "56", "121", "21", "433,30");
+
         CartTests secondCartTests = new CartTests("Folk&Boho", "FB01", "Mystic Moment", "mm07", "Folk&Boho",
                 "FB02", "16", "345", "25", "11");
+
         return new Object[]{
                 firstCartTests,
                 secondCartTests};

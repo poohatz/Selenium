@@ -6,7 +6,6 @@ import PageObjects.MainCategoryPage;
 import PageObjects.ProductPage;
 import org.junit.jupiter.api.Test;
 import org.testng.annotations.Factory;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,6 +17,7 @@ public class NavigationTests extends BaseTests{
     private String symbolPrevious;
 
     public NavigationTests(String category, String symbol, String symbolNext, String symbolPrevious) {
+
         this.category = category;
         this.symbol = symbol;
         this.symbolNext = symbolNext;
@@ -53,7 +53,6 @@ public class NavigationTests extends BaseTests{
     @org.testng.annotations.Test
     public void navigateToProductPageTest() {
 
-
         String productSymbol = mainCategoryPage
                 .viewCategoryByName(category)
                 .viewProductBySymbol(symbol)
@@ -64,7 +63,6 @@ public class NavigationTests extends BaseTests{
 
     @org.testng.annotations.Test
     public void navigateToNextProductTest(){
-
 
         ProductPage productPage = mainCategoryPage
                 .viewCategoryByName(category)
