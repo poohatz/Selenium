@@ -1,5 +1,7 @@
 package PageObjects;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -66,6 +68,7 @@ public class CategoryPage extends BasePage{
 
     }
 
+    @Step("Moves to proper Product Page")
     public ProductPage viewProductBySymbol(String symbol){
 
         By productSymbolSelector = new By.ByCssSelector("img[alt='Model " + symbol + "']");
@@ -95,6 +98,7 @@ public class CategoryPage extends BasePage{
 
     }
 
+    @Step("Adds product to cart")
     public CartPage addToCartByCategoryPage(String symbol){
 
         this.acceptCookie();

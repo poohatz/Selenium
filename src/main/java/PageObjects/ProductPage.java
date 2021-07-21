@@ -1,5 +1,7 @@
 package PageObjects;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -57,7 +59,7 @@ public class ProductPage extends BasePage{
         return super.getMessageWhileCartEmpty();
     }
 
-
+    @Step("Gets product symbol")
     public String getProductSymbol() {
 
         String productSymbol = driver.findElement(productSymbolSelector).getText();
@@ -65,6 +67,7 @@ public class ProductPage extends BasePage{
         return productSymbol;
     }
 
+    @Step("Moves to next product page")
     public ProductPage viewNextProductPage(){
 
         wait = new WebDriverWait(driver,9);
@@ -74,6 +77,7 @@ public class ProductPage extends BasePage{
         return this;
     }
 
+    @Step("Moves to previous product page")
     public ProductPage viewPreviousProductPage(){
 
         wait = new WebDriverWait(driver,9);
@@ -84,6 +88,7 @@ public class ProductPage extends BasePage{
 
     }
 
+    @Step("Adds product to cart")
     public CartPage addToCart(){
 
         wait = new WebDriverWait(driver, 5);

@@ -1,6 +1,7 @@
 package POMTests;
 
 import PageObjects.*;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -54,6 +55,7 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Tries to add product to cart by product page")
     public void addOneProductToCartByProductPageTest() {
 
         String productSymbolInCart = mainCategoryPage
@@ -67,6 +69,7 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Tries to add some products to cart by product page")
     public void addSomeProductsToCartByProductPageTest() {
 
         String productSymbolInCart1 = mainCategoryPage
@@ -86,6 +89,7 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Tries to add twice one product to cart")
     public void addTwiceSameProductToCartTest() {
 
         String productQuantityInCartPage1;
@@ -116,6 +120,7 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Tries to add product to cart by category page")
     public void addProductToCartFromCategoryPageTest() {
 
         String productSymbolInCart;
@@ -135,6 +140,7 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Changes quantity of product in cart")
     public void changeQuantityOfProductInCartPageTest() {
 
         CartPage cartPage = mainCategoryPage
@@ -150,6 +156,7 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("calculates total amount in cart")
     public void calculateTotalAmountInCartPageTest() {
 
         String totalAmountInCartPage = "";
@@ -195,6 +202,7 @@ public class CartTests extends BaseTests{
 
 
     @org.testng.annotations.Test
+    @Description("tries to set invalid quantity in cart")
     public void setIncorrectQuantityCartPageTest() {
 
         String message = "Wartość nie może być mniejsza niż 20.";
@@ -225,6 +233,7 @@ public class CartTests extends BaseTests{
 
 
     @org.testng.annotations.Test
+    @Description("Deletes one product from cart")
     public void deleteOneProductFromCartPageTest(){
 
         String optionalSymbol = "";
@@ -244,6 +253,7 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Deletes some products from cart")
     public void deleteSomeProductsFromCartPageTest(){
 
         String optionalSymbol1 = "";
@@ -271,6 +281,7 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Tries to order products without checking delivery and realization type")
     public void orderProductWithoutCheckingDeliveryAndRealizationTypeCartPage() {
 
         String message = "Wybierz jedną z opcji.";
@@ -291,6 +302,7 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Tries to order products without checking realization type")
     public void orderProductWithoutCheckingRealizationTypeCartPage() {
 
         int deliveryType = 0;
@@ -314,6 +326,7 @@ public class CartTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Tries to order products without checking delivery type")
     public void orderProductWithoutCheckingDeliveryTypeCartPage() {
 
         int realizationType = 1;

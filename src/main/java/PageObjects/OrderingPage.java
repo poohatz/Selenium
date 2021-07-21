@@ -1,5 +1,7 @@
 package PageObjects;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -70,6 +72,7 @@ public class OrderingPage extends BasePage{
 
     }
 
+    @Step("fills Name field in address form")
     public OrderingPage fillNameInStepOneForm(String name){
 
         driver.findElement(nameInputInStepOneFormOrderingPageSelector).sendKeys(name);
@@ -77,13 +80,14 @@ public class OrderingPage extends BasePage{
         return this;
     }
 
+    @Step("clears Name field in address form")
     public OrderingPage clearNameInStepOneForm(){
 
         driver.findElement(nameInputInStepOneFormOrderingPageSelector).clear();
         return this;
     }
 
-
+    @Step("fills Address field in address form")
     public OrderingPage fillAddressInStepOneForm(String address){
 
         driver.findElement(addressInputInStepOneFormOrderingPageSelector).sendKeys(address);
@@ -91,12 +95,14 @@ public class OrderingPage extends BasePage{
         return this;
     }
 
+    @Step("clears Address field in address form")
     public OrderingPage clearAddressInStepOneForm(){
 
         driver.findElement(addressInputInStepOneFormOrderingPageSelector).clear();
         return this;
     }
 
+    @Step("fills Code field in address form")
     public OrderingPage fillCodeInStepOneForm(String code){
 
         driver.findElement(codeInputInStepOneFormOrderingPageSelector).sendKeys(code);
@@ -104,12 +110,14 @@ public class OrderingPage extends BasePage{
         return this;
     }
 
+    @Step("clears Code field in address form")
     public OrderingPage clearCodeInStepOneForm(){
 
         driver.findElement(codeInputInStepOneFormOrderingPageSelector).clear();
         return this;
     }
 
+    @Step("fills City field in address form")
     public OrderingPage fillCityInStepOneForm(String city){
 
         driver.findElement(cityInputInStepOneFormOrderingPageSelector).sendKeys(city);
@@ -117,12 +125,14 @@ public class OrderingPage extends BasePage{
         return this;
     }
 
+    @Step("clears City field in address form")
     public OrderingPage clearCityInStepOneForm(){
 
         driver.findElement(cityInputInStepOneFormOrderingPageSelector).clear();
         return this;
     }
 
+    @Step("fills Telephone field in address form")
     public OrderingPage fillTelInStepOneForm(String tel){
 
         driver.findElement(telInputInStepOneFormOrderingPageSelector).sendKeys(tel);
@@ -130,12 +140,14 @@ public class OrderingPage extends BasePage{
         return this;
     }
 
+    @Step("clears Telephone field in address form")
     public OrderingPage clearTelInStepOneForm(){
 
         driver.findElement(telInputInStepOneFormOrderingPageSelector).clear();
         return this;
     }
 
+    @Step("fills E-mail field in address form")
     public OrderingPage fillEmailInStepOneForm(String email){
 
         driver.findElement(emailInputInStepOneFormOrderingPageSelector).sendKeys(email);
@@ -143,12 +155,14 @@ public class OrderingPage extends BasePage{
         return this;
     }
 
+    @Step("clears E-mail field in address form")
     public OrderingPage clearEmailInStepOneForm(){
 
         driver.findElement(emailInputInStepOneFormOrderingPageSelector).clear();
         return this;
     }
 
+    @Step("fills Comments field in address form")
     public OrderingPage fillCommentsInStepOneForm(String comments){
 
         driver.findElement(commentsInputInStepOneFormOrderingPageSelector).sendKeys(comments);
@@ -156,24 +170,28 @@ public class OrderingPage extends BasePage{
         return this;
     }
 
+    @Step("clears Comments field in address form")
     public OrderingPage clearCommentsInStepOneForm(){
 
         driver.findElement(commentsInputInStepOneFormOrderingPageSelector).clear();
         return this;
     }
 
+    @Step("checks isInvoiceNeeded option in address form")
     public OrderingPage isInvoiceNeededOptionSteoOneForm(Boolean invoice){
 
         driver.findElement(invoiceOptionInStepOneFormOrderingPageSelector).click();
         return this;
     }
 
+    @Step("checks off isInvoiceNeeded option in address form")
     public OrderingPage clearIsInvoiceNeededOptionSteoOneForm(){
 
         driver.findElement(invoiceOptionInStepOneFormOrderingPageSelector).clear();
         return this;
     }
 
+    @Step("fills Nip field in address form")
     public OrderingPage fillNipInStepOneForm(String nip){
 
         driver.findElement(nipInputInStepOneFormOrderingPageSelector).sendKeys(nip);
@@ -181,6 +199,7 @@ public class OrderingPage extends BasePage{
         return this;
     }
 
+    @Step("clears Nip field in address form")
     public OrderingPage clearNipInStepOneForm(){
 
         driver.findElement(nipInputInStepOneFormOrderingPageSelector).clear();
@@ -188,6 +207,7 @@ public class OrderingPage extends BasePage{
     }
 
 
+    @Step("clicks Save and Continue Button")
     public OrderingPage saveAndContinueOrderingPage(){
 
         driver.findElement(continueButtonInStepOneFormOrderingPageSelector).click();
@@ -210,6 +230,7 @@ public class OrderingPage extends BasePage{
         return summaryDataFromOrderingPage;
     }
 
+    @Step("clicks return")
     public OrderingPage returnToStepOneOrderingPage(){
 
         driver.findElement(returnToStepOneButtonOrderingPageSelector).click();
@@ -218,6 +239,7 @@ public class OrderingPage extends BasePage{
 
     }
 
+    @Step("accepts terms")
     public OrderingPage checkTermsConfirmation(){
 
         driver.findElement(termsConfirmationCheckboxOrderingPageSelector).click();
@@ -225,6 +247,7 @@ public class OrderingPage extends BasePage{
         return this;
     }
 
+    @Step("accepts RODO")
     public OrderingPage checkRodoConfirmation(){
 
         driver.findElement(rodoConfirmationChceckboxOrderingPageSelector).click();
@@ -232,6 +255,7 @@ public class OrderingPage extends BasePage{
         return this;
     }
 
+    @Step("finalizes order")
     public OrderingPage finalizeAndConfirmOrder(){
 
         driver.findElement(finalOrderButtonOrderingPageSelector).click();

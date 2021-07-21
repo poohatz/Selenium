@@ -4,6 +4,7 @@ import PageObjects.CartPage;
 import PageObjects.CategoryPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.ProductPage;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import org.testng.annotations.Factory;
 
@@ -82,6 +83,7 @@ public class DisplayTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Checks if display-number of products is 1")
     public void displayNumberOfProductsInCartWhileAddingOneTest(){
 
         String number = "1";
@@ -96,6 +98,7 @@ public class DisplayTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Checks if display-number of products changes after deleting one product")
     public void displayNumberOfProductsInCartWhileDeletingOneTest(){
 
         String number = "";
@@ -114,6 +117,7 @@ public class DisplayTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Checks if display-number of products is correct")
     public void displayNumberOfProductsInCartWhileAddingThreeTest(){
 
         String number1 = "1";
@@ -152,6 +156,7 @@ public class DisplayTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Checks if display-number of products changes after deleting some products")
     public void displayNumberOfProductsInCartWhileDeletingThreeTest(){
 
         String number1 = "2";
@@ -198,6 +203,7 @@ public class DisplayTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Checks if correct message is displayed while cart is empty")
     public void displayCartWithoutContentMessageTest(){
 
         String message = "Brak produktów w koszyku.";

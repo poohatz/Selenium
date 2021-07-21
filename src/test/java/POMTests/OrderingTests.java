@@ -3,6 +3,7 @@ package POMTests;
 import PageObjects.CartPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.OrderingPage;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import org.testng.annotations.Factory;
 import java.util.Map;
@@ -83,6 +84,7 @@ public class OrderingTests extends BaseTests {
     }
 
     @org.testng.annotations.Test
+    @Description("Tries to fill up the address form with incorrect data")
     public void fillingAddressFormStepOneOrderingPageTestNegativeWays() {
 
         int deliveryType = 0;
@@ -231,6 +233,7 @@ public class OrderingTests extends BaseTests {
     }
 
     @org.testng.annotations.Test
+    @Description("Tries to fill up the address form with correct data")
     public void fillingAddressFormStepOneOrderingPageTestPositiveWays() {
 
         int deliveryType = 0;
@@ -300,6 +303,7 @@ public class OrderingTests extends BaseTests {
     }
 
     @org.testng.annotations.Test
+    @Description("Finalizes order - happy path")
     public void finalizeOrderAndPayLaterInOrderingPagePositiveWay(){
 
         int deliveryType = 1 ;
@@ -333,6 +337,7 @@ public class OrderingTests extends BaseTests {
     }
 
     @org.testng.annotations.Test
+    @Description("Tries to finalize order without accepting RODO or terms")
     public void finalizeOrderAndPayLaterInOrderingPageNegativeWays(){
 
         int deliveryType = 1 ;

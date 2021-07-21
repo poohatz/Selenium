@@ -1,5 +1,7 @@
 package PageObjects;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -36,6 +38,7 @@ public class MainCategoryPage extends BasePage {
         return super.getMessageWhileCartEmpty();
     }
 
+    @Step("Moves to proper category")
     public CategoryPage viewCategoryByName(String categoryName){
 
         CategoryPage categoryPage = new CategoryPage(driver);

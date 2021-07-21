@@ -1,5 +1,7 @@
 package PageObjects;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -55,6 +57,7 @@ public class CartPage extends BasePage{
         return productInCartSymbol;
     }
 
+    @Step("changes product quantity")
     public CartPage changeProductQuantity(int index, String quantity) {
 
         By inputQuantitySelector = new By.ByCssSelector("input#cart_items_" + index + "_quantity");
@@ -65,19 +68,20 @@ public class CartPage extends BasePage{
         return this;
 
     }
-
+    @Step("Calculates total amount")
     public CartPage calculateTotalAmount(){
 
         WebElement calculateTotalAmountButton = driver.findElement(calculateTotalAmountButtonSelector);
         wait = new WebDriverWait(driver,7);
         wait.until(ExpectedConditions.elementToBeClickable(calculateTotalAmountButton));
         calculateTotalAmountButton.click();
-        logger.info("Total amount changed changed");
+        logger.info("Total amount changed");
 
         return this;
 
     }
 
+    @Step("Gets total amount")
     public String getTotalAmount(){
 
         WebElement totalAmountInCartPage = driver.findElement(totalAmountSelector);
@@ -87,6 +91,7 @@ public class CartPage extends BasePage{
     }
 
 
+    @Step("Displays product quantity")
     public String getProductQuantity(int index){
 
         By inputQuantitySelector = new By.ByCssSelector("input#cart_items_" + index + "_quantity");
@@ -96,6 +101,7 @@ public class CartPage extends BasePage{
 
     }
 
+    @Step("sets up delivery type")
     public CartPage setDeliveryType(int i){
 
         CartPage cartPage = new CartPage(driver);
@@ -107,6 +113,7 @@ public class CartPage extends BasePage{
         return cartPage;
     }
 
+    @Step("sets up realization type")
     public CartPage setRealizationType(int i){
 
         CartPage cartPage = new CartPage(driver);
@@ -118,6 +125,7 @@ public class CartPage extends BasePage{
         return cartPage;
     }
 
+    @Step("deletes product from cart")
     public CartPage deleteFromCartPage(String symbol){
 
         By removeButtonCartPageSelector =
@@ -127,6 +135,7 @@ public class CartPage extends BasePage{
         return this;
     }
 
+    @Step("clicks Save and Order Button")
     public OrderingPage saveAndOrderProductsFromCart(){
 
         this.acceptCookie();

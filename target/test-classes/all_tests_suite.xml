@@ -2,9 +2,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="All Tests">
 
-    <test name="Navigation Tests">
+    <test name="Ordering Tests">
         <classes>
-            <class name="POMTests.NavigationTests"/>
+            <class name="POMTests.OrderingTests" />
         </classes>
     </test>
 

@@ -4,6 +4,7 @@ import PageObjects.CartPage;
 import PageObjects.CategoryPage;
 import PageObjects.MainCategoryPage;
 import PageObjects.ProductPage;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Test;
 import org.testng.annotations.Factory;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -36,6 +37,7 @@ public class NavigationTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Checks if navigation between categories works on")
     public void navigateCategoryTest(){
 
         for(int i=0; i<categories.length; i++){
@@ -51,6 +53,7 @@ public class NavigationTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Tries to navigate to Product Page")
     public void navigateToProductPageTest() {
 
         String productSymbol = mainCategoryPage
@@ -62,6 +65,7 @@ public class NavigationTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Checks if button next works properly")
     public void navigateToNextProductTest(){
 
         ProductPage productPage = mainCategoryPage
@@ -77,6 +81,7 @@ public class NavigationTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Checks if button previous works properly")
     public void navigateToPreviousProductTest(){
 
         ProductPage productPage = mainCategoryPage
@@ -92,6 +97,7 @@ public class NavigationTests extends BaseTests{
     }
 
     @org.testng.annotations.Test
+    @Description("Checks if all products display properly while using next button")
     public void navigateAllProductsByNextButtonTest(){
 
 
@@ -118,6 +124,7 @@ public class NavigationTests extends BaseTests{
 
 
     @org.testng.annotations.Test
+    @Description("Checks if it is possible to navigate from cart to main page and then come back without loss of content")
     public void navigateFromCartToMainPageAnRevertTest(){
 
         String productSymbolInCart = mainCategoryPage
