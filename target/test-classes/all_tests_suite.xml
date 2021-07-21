@@ -2,9 +2,13 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="All Tests">
 
-    <test name="Ordering Tests">
+    <listeners>
+        <listener class-name="utils.TestListener"/>
+    </listeners>
+
+    <test name="Cart Tests">
         <classes>
-            <class name="POMTests.OrderingTests" />
+            <class name="POMTests.CartTests" />
         </classes>
     </test>
 

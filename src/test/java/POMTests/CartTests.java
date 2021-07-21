@@ -44,7 +44,7 @@ public class CartTests extends BaseTests{
     public static Object[] cartTestsDataFactoryMethod() {
 
         CartTests firstCartTests = new CartTests("Mystic Moment", "mm04", "Pastellove", "PL47", "Vintage&Nature",
-                "sa32", "56", "121", "21", "433,30");
+                "sa32", "56", "121", "21", "433,33");
 
         CartTests secondCartTests = new CartTests("Folk&Boho", "FB01", "Mystic Moment", "mm07", "Folk&Boho",
                 "FB02", "16", "345", "25", "11");

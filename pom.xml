@@ -127,7 +127,7 @@
                         <allure.results.directory>${basedir}/target/allure-results</allure.results.directory>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src\test\resources\all_tests_suite.xml</suiteXmlFile>
+                        <suiteXmlFile>${basedir}/src/test/resources/all_tests_suite.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <!--Konfiguracja Allura ze ścieżką do biblioteki aspectjweaver-->
                     <argLine>
