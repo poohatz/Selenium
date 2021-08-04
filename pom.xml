@@ -12,6 +12,9 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <aspectj.version>1.9.5</aspectj.version>
+
+        <selectedTests>All Tests</selectedTests>
+
     </properties>
 
 
@@ -81,6 +84,7 @@
             <version>5.2.0</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
@@ -129,6 +133,12 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>${basedir}/src/test/resources/all_tests_suite.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                    <properties>
+                        <property>
+                            <name>testnames</name>
+                            <value>${selectedTests}</value>
+                        </property>
+                    </properties>
                     <!--Konfiguracja Allura ze ścieżką do biblioteki aspectjweaver-->
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"

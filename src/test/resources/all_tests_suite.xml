@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="All Tests">
+<suite name="Suite">
+    <test name="All Tests">
+        <classes>
+            <class name="POMTests.CartTests" />
+            <class name="POMTests.OrderingTests" />
+            <class name="POMTests.DisplayTests" />
+            <class name="POMTests.NavigationTests" />
+        </classes>
+    </test>
 
+    <test name="POMTests.CartTests">
+        <classes>
+            <class name="POMTests.CartTests"/>
+        </classes>
+    </test>
+
+    <!--
     <listeners>
         <listener class-name="utils.TestListener"/>
     </listeners>
+    -->
 
-    <test name="Cart Tests">
-        <classes>
-            <class name="POMTests.CartTests" />
-        </classes>
-    </test>
+
 
 </suite>
