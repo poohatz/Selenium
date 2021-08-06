@@ -35,7 +35,7 @@ public class DisplayTests extends BaseTests{
         }
     }
 
-    @Test
+     /*  @Test
     public void displayNumberOfProductsInCartWhileAddingOneTest(){
 
         String category = categories[3];
@@ -133,7 +133,7 @@ public class DisplayTests extends BaseTests{
 
     }
 
-    /* @Test
+   @Test
     public void displayCartWithoutContentMessageTest(){
 
         String message = "Brak produktów w koszyku.";
