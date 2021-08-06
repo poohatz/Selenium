@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class DisplayTests extends BaseTests{
 
 
-    @Test
+   /* @Test
     public void displayAndNavigateProductGalleryTest(){
 
         String category = categories[3];
@@ -33,9 +33,9 @@ public class DisplayTests extends BaseTests{
             assertTrue(imageNextFullProductGalleryFile.equals(imageNextThumbnailProductGalleryFile), "Duze zdjecie po kliknieciu miniaturki " + i +" nie wyswietla sie prawidlowo");
 
         }
-    }
+    }*/
 
-     /*  @Test
+       @Test
     public void displayNumberOfProductsInCartWhileAddingOneTest(){
 
         String category = categories[3];
@@ -49,6 +49,7 @@ public class DisplayTests extends BaseTests{
         assertEquals(numberOfProductsDisplay, number, "Cyfra przy koszyku dla 1 produktu nie zgadza sie");
     }
 
+    /*
     @Test
     public void displayNumberOfProductsInCartWhileDeletingOneTest(){
 
