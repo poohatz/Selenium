@@ -133,7 +133,7 @@ public class DisplayTests extends BaseTests{
 
     }
 
-    @Test
+    /* @Test
     public void displayCartWithoutContentMessageTest(){
 
         String message = "Brak produktów w koszyku.";
@@ -142,7 +142,7 @@ public class DisplayTests extends BaseTests{
         String messageWhileCartEmpty = mainCategoryPage.viewCartPage().getMessageWhileCartEmpty();
 
         assertEquals(message, messageWhileCartEmpty, "Komunikat w pustym koszyku nie zgadza się z oczekiwanym");
-    }
+    }*/
 
 
 }
