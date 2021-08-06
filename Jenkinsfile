@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Execute test') {
             steps {
-                sh 'mvn test "-Dtest=POMTests.DisplayTests.displayAndNavigateProductGalleryTest"'
+                sh 'mvn test "-Dtest=POMTests.DisplayTests.displayAndNavigateProductGalleryTest()"'
             }
         }
         stage('Generate allure report') {
