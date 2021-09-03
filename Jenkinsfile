@@ -1,4 +1,4 @@
-pipeline {
+asdasdasdasdasdpeline {
     agent any
     stages {
         stage('Build test code') {
@@ -9,7 +9,7 @@ pipeline {
         stage('Execute test') {
             steps {
                 sh 'mvn test "-Dtest=POMTests.DisplayTests.displayAndNavigateProductGalleryTest"'
-            }
+     asdasdasdasdasd:wq       }
         }
         stage('Generate allure report') {
             steps {
@@ -25,4 +25,4 @@ pipeline {
             }
         }
     }
-}
+as}as
